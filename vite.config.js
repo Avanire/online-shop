@@ -1,33 +1,19 @@
 import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-import vue from '@vitejs/plugin-vue';
+import laravel from 'laravel-vite-plugin'
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: 'resources/js/app.js',
+            input: 'resources/js/App.js',
             ssr: 'resources/js/ssr.js',
             refresh: true,
         }),
-        vue({
-            template: {
-                transformAssetUrls: {
-                    base: null,
-                    includeAbsolute: false,
-                },
-            },
-        }),
         react(),
     ],
-    resolve: {
-        alias: {
-            '@images': '/resources/images',
-            '@icons': '/resources/js/Icons',
-            '@': '/resources/js',
-            '~': path.resolve(__dirname, 'node_modules'),
-            '~react-quill': path.resolve(__dirname, 'node_modules/react-quill'),
-        },
+    resolve: name => {
+        const pages = import.meta.glob('./Pages/**/*.tsx', { eager: true })
+        return pages[`./Pages/${name}.tsx`]
     },
     esbuild: {
         jsxInject: `import React from 'react'`,

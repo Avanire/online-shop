@@ -1,0 +1,13 @@
+.link {
+    position: relative;
+}
+.link::before {
+    content: '';
+    position: absolute;
+    right: -30px;
+    top: 14px;
+    width: 18px;
+    height: 19px;
+    background-image: url("../../../images/arrow-right-purple.svg");
+    background-repeat: no-repeat;
+}

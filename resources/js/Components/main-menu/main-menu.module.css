@@ -1,0 +1,100 @@
+.menu {
+    display: flex;
+    column-gap: 1.5em;
+}
+
+.menuItem {
+    padding: 0.5625rem 0.875rem;
+    position: relative;
+    color: var(--text-color);
+}
+
+.menuItem:hover {
+    text-decoration: none;
+}
+
+.menuItemParent {
+    composes: menuItem;
+    padding: 0.8125rem 2.125rem 0.8125rem 2.875rem;
+    transition: all 0.25ms linear;
+}
+
+.cat {
+    font-weight: 500;
+    line-height: 110%;
+    border: unset;
+}
+
+.cat::before,
+.dog::before {
+    position: absolute;
+    content: '';
+    top: 10px;
+    left: 16px;
+    background-image: url("../../../images/Catface.svg");
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+}
+
+.dog {
+    composes: cat;
+}
+
+.dog::before {
+    background-image: url("../../../images/Dogface.svg");
+}
+
+.menuItemParent::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 18px;
+    right: 17px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-image: url("../../../images/arrow-down-gray.svg");
+}
+
+.childrenMenu {
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    background: var(--white-color);
+    padding: 1em 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 10em;
+    row-gap: 6px;
+    top: 54px;
+    z-index: 200;
+}
+
+.menuItemParent:hover .childrenMenu {
+    visibility: visible;
+}
+
+.fire,
+.flash {
+    padding-left: 2.625rem;
+}
+
+.fire::before,
+.flash::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 12px;
+    top: 10px;
+    background-image: url("../../../images/Fire.svg");
+}
+
+.flash::before {
+    background-image: url("../../../images/Highvoltage.svg");
+}
+
+.last {
+    margin-left: auto;
+}

@@ -1,0 +1,22 @@
+.category {
+    border-radius: 24px;
+    background-repeat: no-repeat;
+}
+
+.category:nth-child(even) {
+    background-image: url("../../../images/category-bg-even.png");
+    border: 2px solid var(--main-purple);
+}
+
+.category:nth-child(odd) {
+    background-image: url("../../../images/category-bg-odd.png");
+    border: 2px solid var(--main-orange);
+}
+
+.category:nth-child(even) a:hover {
+    color: var(--main-purple);
+}
+
+.category:nth-child(odd) a:hover {
+    color: var(--main-orange);
+}

@@ -1,0 +1,45 @@
+.link {
+    position: relative;
+}
+.link::before {
+    content: '';
+    position: absolute;
+    right: -30px;
+    top: 14px;
+    width: 18px;
+    height: 19px;
+    background-image: url("../../../images/arrow-right-purple.svg");
+    background-repeat: no-repeat;
+}
+.leftArrow,
+.rightArrow {
+    position: absolute;
+    z-index: 1;
+    top: 35%;
+    transform: translateY(-35%);
+}
+.show1 > * {
+    flex-basis: 100%;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+.show2 > * {
+    flex-basis: 50%;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+.show3 > * {
+    flex-basis: calc(100% / 3);
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+.show4 > * {
+    flex-basis: calc(100% / 4);
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+.show5 > * {
+    flex-shrink: 0;
+    flex-grow: 1;
+    flex-basis: calc(100% / 5);
+}

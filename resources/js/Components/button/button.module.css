@@ -1,0 +1,5 @@
+.cartBtn {
+    color: var(--white-color);
+    background: var(--main-purple);
+    border-radius: 12px;
+}

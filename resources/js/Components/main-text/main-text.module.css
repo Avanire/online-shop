@@ -1,0 +1,11 @@
+.mainText {
+    background-color: #F1F5F8;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 24px;
+}
+
+p {
+    color: var(--menu-link);
+    margin-bottom: 1rem;
+}

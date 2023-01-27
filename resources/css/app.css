@@ -1,3 +1,79 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Golos';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/golos-text_regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Golos';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/golos-text_bold.woff') format('woff');
+}
+
+@layer base {
+    :root {
+        box-sizing: border-box;
+        --link-color: #677178;
+        --text-color: #1C1F22;
+        --white-color: #fff;
+        --bg-color: #F8F8FA;
+        --product-brand-color: #94959B;
+        --product-sales-color: #777C91;
+        --product-cart-color: #787878;
+        --product-tips-color: #FF4A5F;
+        --product-new-price: #FD4D63;
+        --gray-1: #333333;
+        --main-purple: #8168F0;
+        --main-orange: #F98026;
+        --menu-link: #494F54;
+        --link-more: #6B7176;
+    }
+}
+
+*,
+::before,
+::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    font-family: 'Golos', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--white-color);
+}
+
+/*a:link {
+  color: var(--link-color);
+  font-weight: 400;
+  text-decoration: none;
+}
+a:visited {
+  color: var(--link-color);
+}
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  color: var(--text-color);
+}*/
+
+h2 {
+    font-weight: 700;
+    line-height: 41px;
+    color: var(--text-color);
+    font-size: 2.125rem;
+}
+
+h3  {
+    font-weight: 700;
+    line-height: 34px;
+    font-size: 2.125rem;
+}

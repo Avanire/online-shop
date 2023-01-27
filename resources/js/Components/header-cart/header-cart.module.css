@@ -1,0 +1,10 @@
+.cartHeader {
+    font-weight: 700;
+    line-height: 19px;
+    color: var(--text-color);
+}
+
+.cartSum {
+    composes: cartHeader;
+    font-weight: 400;
+}

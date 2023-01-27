@@ -1,0 +1,5 @@
+.callback {
+    line-height: 19px;
+    color: var(--text-color);
+    cursor: pointer;
+}
