@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return Inertia::render('HomePage/home-page', [
+        return Inertia::render('HomePage/HomePage', [
             'address' => setting('site.address'),
             'topMenu' => menu('topMenu')
         ]);

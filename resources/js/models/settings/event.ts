@@ -5,3 +5,5 @@ export const phoneRequest = createEvent<string>();
 export const emailRequest = createEvent<string>();
 export const workTimeRequest = createEvent<string>();
 export const logoRequest = createEvent<string>();
+
+addressRequest.watch(s => console.log(s))

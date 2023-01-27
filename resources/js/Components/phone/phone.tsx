@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from "react";
+import {FC, useEffect} from "react";
 import {useStore} from "effector-react";
 import {modelSetting} from "../../models/settings";
 import Skeleton from 'react-loading-skeleton';

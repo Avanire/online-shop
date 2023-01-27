@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import Phone from "../phone/phone";
 
 const HeaderPhoneBlock: FC = () => {

@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from "react";
+import {FC, useEffect} from "react";
 import Phone from "../phone/phone";
 import {useStore} from "effector-react";
 import {modelSetting} from "../../models/settings";
@@ -8,10 +8,11 @@ import FooterMenu from "../footer-menu/footer-menu";
 import styles from "./footer-top.module.css";
 import {Link} from "@inertiajs/react";
 
-const FooterTop: FC<{address: string}> = ({address}) => {
+const FooterTop: FC = () => {
     const email = useStore(modelSetting.$email);
     const workTime = useStore(modelSetting.$workTime);
     const categories = useStore(modelMenu.$categories);
+    const address = useStore(modelSetting.$address);
 
     useEffect(() => {
         modelSetting.emailRequest('email');

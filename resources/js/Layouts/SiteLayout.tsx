@@ -2,19 +2,23 @@ import * as React from "react";
 import {FC, ReactElement} from "react";
 import AppHeader from "../Components/app-header/app-header";
 import AppFooter from "../Components/app-footer/app-footer";
+import {Head} from "@inertiajs/react";
 
 export interface ISiteLayout {
     readonly children: ReactElement;
-    readonly address: string;
+    readonly title: string;
 }
 
-const SiteLayout: FC<ISiteLayout> = ({ children, address }) => {
+const SiteLayout: FC<ISiteLayout> = ({ children, title}) => {
 
     return (
         <>
-            <AppHeader address={address} />
+            <Head>
+                <title>{title}</title>
+            </Head>
+            <AppHeader />
             {children}
-            <AppFooter address={address} />
+            <AppFooter  />
         </>
     );
 }

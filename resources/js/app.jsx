@@ -1,5 +1,6 @@
 import './bootstrap';
 import '../css/app.css';
+import './models/init';
 
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';

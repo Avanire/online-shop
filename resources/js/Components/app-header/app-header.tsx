@@ -1,13 +1,13 @@
-import React, {FC} from "react";
+import {FC} from "react";
 import HeaderTop from "../header-top/header-top";
 import HeaderMiddle from "../header-middle/header-middle";
 import MainMenu from "../main-menu/main-menu";
 
-const AppHeader: FC<{address: string}> = ({address}) => {
+const AppHeader: FC = () => {
     return (
         <header>
             <div className={`container mx-auto`}>
-                <HeaderTop address={address}/>
+                <HeaderTop />
                 <HeaderMiddle/>
                 <MainMenu/>
             </div>

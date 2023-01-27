@@ -1,9 +1,9 @@
-import React, {FC, useEffect, useMemo} from "react";
+import {FC, useEffect, useMemo} from "react";
 import MainCategories from "../../components/main-categories/main-categories";
 import MainBanner from "../../components/main-banner/main-banner";
 import {useStore} from "effector-react";
 import {modelProduct} from "../../models/products";
-import {IProduct} from "../../utils/types";
+import {IHomePage, IProduct} from "../../utils/types";
 import MainProduct from "../../components/main-product/main-product";
 import {modelBanner} from "../../models/banner";
 import {modelBrands} from "../../models/brand";
@@ -16,12 +16,7 @@ import MainSubscription from "../../components/main-subscription/main-subscripti
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import SiteLayout from "../../Layouts/SiteLayout";
-import {Head} from "@inertiajs/react";
-
-export interface IHomePage {
-    readonly address: string;
-    readonly topMenu: Array<string>
-}
+import {modelSetting} from "../../models/settings";
 
 const HomePage: FC<IHomePage> = ({address}) => {
     const headingStock = 'Акции';
@@ -66,12 +61,12 @@ const HomePage: FC<IHomePage> = ({address}) => {
         modelBrands.brandsRequest();
     }, []);
 
+    useEffect(() => {
+        modelSetting.addressRequest(address);
+    }, [address])
+
     return (
-        <SiteLayout address={address}>
-            <>
-            <Head>
-                <title>213</title>
-            </Head>
+        <SiteLayout title='Главная'>
             <main className={`container mx-auto`}>
                 <MainSlider/>
                 <MainCategories/>
@@ -92,7 +87,6 @@ const HomePage: FC<IHomePage> = ({address}) => {
                 <MainArticles/>
                 <MainSubscription/>
             </main>
-            </>
         </SiteLayout>
     );
 }

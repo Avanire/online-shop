@@ -13,7 +13,10 @@ import {
 import {fetchAddressFx, fetchEmailFx, fetchLogoFx, fetchPhoneFx, fetchWorkTimeFx} from "./fx";
 
 $address
-    .on(fetchAddressFx.doneData, (_, result) => result.data);
+    .on(addressRequest, (address, action) => {
+        console.log(address)
+        return action;
+    });
 
 $addressIsLoading
     .on(fetchAddressFx.pending, (_, isPending) => isPending);
@@ -34,11 +37,6 @@ $workTimeIsLoading
 
 $logo.on(fetchLogoFx.doneData, (_, result) => result.data);
 $logoIsLoading.on(fetchLogoFx.pending, (isLoading) => isLoading);
-
-forward({
-    from: addressRequest,
-    to: fetchAddressFx
-});
 
 forward({
     from: phoneRequest,

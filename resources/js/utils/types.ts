@@ -68,3 +68,13 @@ export interface IArticle {
     readonly created_at: string;
     readonly image: string;
 }
+export interface IMenuItem {
+    readonly id: number;
+    readonly url: string;
+    readonly title: string;
+}
+
+export interface IHomePage {
+    readonly address: string;
+    readonly topMenu: Array<IMenuItem>;
+}
