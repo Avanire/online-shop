@@ -1,12 +1,9 @@
-import React, {FC, Fragment, useEffect, useState} from "react";
-import {useStore} from "effector-react";
-import {modelMenu} from "../../models/menu";
-import Skeleton from 'react-loading-skeleton';
+import React, {FC, Fragment, useState} from "react";
 import 'react-loading-skeleton/dist/skeleton.css';
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react';
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline';
-import {classNames} from "../../utils/utils";
-import {Link} from "@inertiajs/react";
+import {classNames} from "../../Utils/utils";
+import {Link, usePage} from "@inertiajs/react";
 
 const navigation = {
 
@@ -134,13 +131,8 @@ const navigation = {
 }
 
 const MainMenu: FC = () => {
-    const menu = useStore(modelMenu.$menu);
-    const isLoading = useStore(modelMenu.$menuIsLoaded);
+    const menu = usePage().props.mainMenu;
     const [open, setOpen] = useState(false)
-
-    useEffect(() => {
-        modelMenu.menuRequest('main');
-    }, []);
 
     return (
         /*<nav className={`${styles.menu} mb-2`}>
@@ -347,7 +339,7 @@ const MainMenu: FC = () => {
                                                                         <div>
                                                                             <Link id={`${category.title}-heading`}
                                                                                   className="font-medium text-gray-900"
-                                                                                  href={`catalog/${category.url}`}>
+                                                                                  href={`/catalog/${category.url}`}>
                                                                                 {category.title}
                                                                             </Link>
                                                                             <ul
@@ -359,7 +351,7 @@ const MainMenu: FC = () => {
                                                                                     <li key={item.title}
                                                                                         className="flex">
                                                                                         <Link
-                                                                                            href={`catalog/${item.url}`}
+                                                                                            href={`/catalog/${item.url}`}
                                                                                             className="hover:text-gray-800">
                                                                                             {item.title}
                                                                                         </Link>

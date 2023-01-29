@@ -1,13 +1,4 @@
 import {articleRequest} from "./event";
-import {fetchArticlesFx} from "./fx";
-import {$articles, $articlesIsLoading} from "./store";
-import {forward} from "effector";
+import {$articles} from "./store";
 
-$articles.on(fetchArticlesFx.doneData, (_, result) => result.data);
-
-$articlesIsLoading.on(fetchArticlesFx.pending, (_, isLoading) => isLoading);
-
-forward({
-    from: articleRequest,
-    to: fetchArticlesFx
-});
+$articles.on(articleRequest, (_, result) => result);

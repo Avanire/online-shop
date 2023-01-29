@@ -1,12 +1,6 @@
 import {slidersRequest} from "./event";
 import {$sliders, $slidersIsLoading} from "./store";
 import {fetchSlidersFx} from "./fx";
-import {forward} from "effector";
 
-$sliders.on(fetchSlidersFx.doneData, (_, result) => result.data);
+$sliders.on(slidersRequest, (_, result) => result);
 $slidersIsLoading.on(fetchSlidersFx.pending, (_, isLoading) => isLoading);
-
-forward({
-   from: slidersRequest,
-   to: fetchSlidersFx
-});

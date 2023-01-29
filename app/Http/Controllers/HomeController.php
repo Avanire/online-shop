@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\ArticleCategory;
+use App\Models\Banner;
+use App\Models\Brand;
+use App\Models\MainText;
+use App\Models\Product;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Services\CategoryMenuService;
 
 class HomeController extends Controller
 {
@@ -16,8 +24,18 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
         return Inertia::render('HomePage/HomePage', [
-            'address' => setting('site.address'),
-            'topMenu' => menu('topMenu')
+            //Slider
+            'slides'    => Slider::all()->where('activity', 1),
+            //MainProducts
+            'products'  => Product::all()->where('activity', 1),
+            //Banners
+            'banners'   => Banner::all(),
+            //Brands
+            'brands'    => Brand::all(),
+            //MainText
+            'mainText' => MainText::all()->first(),
+            //Articles
+            'articles' => ArticleCategory::find(1)->article,
         ]);
     }
 }

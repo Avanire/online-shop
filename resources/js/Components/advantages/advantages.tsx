@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import {FC} from "react";
 import Advantage from "../advantage/advantage";
 // @ts-ignore
 import fire from '../../../images/Fire.png';

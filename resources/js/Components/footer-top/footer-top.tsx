@@ -1,24 +1,12 @@
-import {FC, useEffect} from "react";
+import {FC} from "react";
 import Phone from "../phone/phone";
-import {useStore} from "effector-react";
-import {modelSetting} from "../../models/settings";
-import {modelMenu} from "../../models/menu";
 import FooterMenu from "../footer-menu/footer-menu";
 // @ts-ignore
 import styles from "./footer-top.module.css";
-import {Link} from "@inertiajs/react";
+import {Link, usePage} from "@inertiajs/react";
 
 const FooterTop: FC = () => {
-    const email = useStore(modelSetting.$email);
-    const workTime = useStore(modelSetting.$workTime);
-    const categories = useStore(modelMenu.$categories);
-    const address = useStore(modelSetting.$address);
-
-    useEffect(() => {
-        modelSetting.emailRequest('email');
-        modelSetting.workTimeRequest('worktime');
-        modelMenu.categoryRequest('categories');
-    }, []);
+    const {address, email, workTime, categories} = usePage().props;
 
     return (
         <section className={`flex mb-12`}>
@@ -30,7 +18,8 @@ const FooterTop: FC = () => {
                 <button className={`py-3.5 px-6 rounded-xl text-white bg-[var(--main-purple)]`}>Заказать звонок</button>
             </div>
             <FooterMenu name='Каталог' extraClass='basis-1/5'>
-                {categories.map(item => <Link key={item.id} href={`catalog/${item.url}`} className={`${styles.menuItem}`}>{item.title}</Link>)}
+                {categories.map(item => <Link key={item.id} href={`catalog/${item.url}`}
+                                              className={`${styles.menuItem}`}>{item.title}</Link>)}
             </FooterMenu>
             <FooterMenu name='Покупателям' extraClass='basis-1/5'>
                 <Link href='' className={`${styles.menuItem}`}>Акции</Link>

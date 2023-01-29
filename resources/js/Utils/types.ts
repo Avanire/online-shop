@@ -27,9 +27,18 @@ export interface IProduct {
     count: number;
 }
 
+export interface IProductCard {
+    readonly product: IProduct;
+}
+
 export interface ICategory {
     readonly name: string;
     readonly products: Array<IProduct>;
+    readonly alias: string;
+}
+
+export interface ICategoryCard {
+    readonly category: ICategory;
 }
 
 export interface IBanner {
@@ -37,6 +46,7 @@ export interface IBanner {
     description?: string;
     link?: string;
     image: string;
+    position: string;
 }
 
 export interface IImageList {
@@ -75,6 +85,30 @@ export interface IMenuItem {
 }
 
 export interface IHomePage {
-    readonly address: string;
-    readonly topMenu: Array<IMenuItem>;
+    readonly slides: Array<ISlide>;
+    readonly products: Array<IProduct>;
+    readonly banners: Array<IBanner>;
+    readonly brands: Array<IImage>;
+    readonly mainText: IMainText;
+    readonly articles: Array<IArticle>;
+}
+
+export interface IMainCategory {
+    name: string;
+    link: string;
+    children: Array<IMenu>;
+    image?: string;
+}
+
+export interface IMainProduct {
+    heading: string;
+    linkStock?: string;
+    products: Array<IProduct>;
+    productToShow?: number;
+}
+
+export interface IMainText {
+    heading: string;
+    content: string;
+    image: string;
 }

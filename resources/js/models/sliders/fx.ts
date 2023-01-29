@@ -1,4 +1,4 @@
 import {createEffect} from "effector";
-import {getSliders} from "../../utils/api";
+import {getSliders} from "../../Utils/api";
 
 export const fetchSlidersFx = createEffect(getSliders);

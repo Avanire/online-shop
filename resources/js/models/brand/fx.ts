@@ -1,4 +1,4 @@
 import {createEffect} from "effector";
-import {getBrands} from "../../utils/api";
+import {getBrands} from "../../Utils/api";
 
 export const fetchBrandsFx = createEffect(getBrands);

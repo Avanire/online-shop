@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\CategoryMenuService;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -36,6 +37,16 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
+            //Settings
+            'address'   => setting('site.address'),
+            'logo'      => setting('site.logo'),
+            'phone'     => setting('site.phone'),
+            'workTime'  => setting('site.worktime'),
+            'email'  => setting('site.email'),
+            //Menu
+            'mainMenu'  => menu('main', '_json'),
+            'topMenu'   => menu('topMenu', '_json'),
+            'categories' => CategoryMenuService::getCategoriesMenu(),
         ]);
     }
 }

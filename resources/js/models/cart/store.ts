@@ -1,4 +1,4 @@
 import {createStore} from "effector";
-import {IProduct} from "../../utils/types";
+import {IProduct} from "../../Utils/types";
 
 export const $cart = createStore<Array<IProduct>>([]);

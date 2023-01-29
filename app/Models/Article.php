@@ -13,4 +13,9 @@ class Article extends Model
     public function category() {
         return $this->belongsTo(ArticleCategory::class);
     }
+
+    public function getRouteKeyName()
+        {
+            return 'alias';
+        }
 }

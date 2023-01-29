@@ -1,6 +1,6 @@
 import React, {FC} from "react";
-import {IProduct} from "../../utils/types";
-import {RUB, STORAGE_URL} from "../../utils/constans";
+import {IProduct} from "../../Utils/types";
+import {RUB, STORAGE_URL} from "../../Utils/constans";
 // @ts-ignore
 import styles from './product.module.css';
 import Button from "../button/button";

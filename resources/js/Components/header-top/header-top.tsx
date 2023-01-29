@@ -3,11 +3,10 @@ import HeaderTopNav from "../header-top-nav/header-top-nav";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import HeaderPhoneBlock from "../header-phone-block/header-phone-block";
-import {useStore} from "effector-react";
-import {modelSetting} from "../../models/settings";
+import {usePage} from "@inertiajs/react";
 
 const HeaderTop: FC = () => {
-    const address = useStore(modelSetting.$address);
+    const address: string = usePage().props.address;
 
     return (
         <section className={`flex gap-8 my-5 flex-wrap items-center`}>

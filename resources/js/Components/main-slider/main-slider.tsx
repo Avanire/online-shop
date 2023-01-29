@@ -1,4 +1,4 @@
-import React, {FC, SyntheticEvent, useEffect, useState} from "react";
+import {FC, SyntheticEvent, useState} from "react";
 import {useStore} from "effector-react";
 import {modelSliders} from "../../models/sliders";
 import Slide from "../slide/slide";
@@ -8,10 +8,6 @@ import 'react-loading-skeleton/dist/skeleton.css';
 const MainSlider: FC = () => {
     const sliders = useStore(modelSliders.$sliders);
     const [currentSlide, setCurrentSlide] = useState<number>(0);
-
-    useEffect(() => {
-        modelSliders.slidersRequest();
-    }, []);
 
     const handleClickPrev = (e: SyntheticEvent) => {
         e.preventDefault();

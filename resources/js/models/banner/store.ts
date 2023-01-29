@@ -1,5 +1,5 @@
 import {createStore} from "effector";
-import {IBanner} from "../../utils/types";
+import {IBanner} from "../../Utils/types";
 
 export const $mainBannerTop = createStore<IBanner | null>(null);
 export const $mainBannerTopIsLoading = createStore<boolean>(false);

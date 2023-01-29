@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from "react";
 import Product from "../product/product";
-import {IProduct} from "../../utils/types";
+import {IMainProduct} from "../../Utils/types";
 // @ts-ignore
 import styles from './main-product.module.css';
 // @ts-ignore
@@ -8,13 +8,6 @@ import nextBtn from '../../../images/slide-next.svg';
 // @ts-ignore
 import prevBtn from '../../../images/slide-prev.svg';
 import {Link} from "@inertiajs/react";
-
-interface IMainProduct {
-    heading: string;
-    linkStock?: string;
-    products: Array<IProduct>;
-    productToShow?: number;
-}
 
 const MainProduct: FC<IMainProduct> = ({heading, linkStock, products, productToShow = 5}) => {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
