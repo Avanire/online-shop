@@ -25,6 +25,7 @@ export interface IProduct {
     readonly charity: boolean;
     readonly description: string;
     count: number;
+    readonly categoryUrl: string;
 }
 
 export interface IProductCard {
@@ -39,6 +40,7 @@ export interface ICategory {
 
 export interface ICategoryCard {
     readonly category: ICategory;
+    readonly subCategories: Array<ICategory>;
 }
 
 export interface IBanner {

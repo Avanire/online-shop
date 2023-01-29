@@ -2,8 +2,10 @@ import React, {FC, Fragment, useState} from "react";
 import 'react-loading-skeleton/dist/skeleton.css';
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react';
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline';
-import {classNames} from "../../Utils/utils";
+import {classNames} from "../../utils/utils";
 import {Link, usePage} from "@inertiajs/react";
+// @ts-ignore
+import styles from './main-menu.module.css';
 
 const navigation = {
 
@@ -202,9 +204,9 @@ const MainMenu: FC = () => {
                                 <Tab.Group as="div" className="mt-2">
                                     <div className="border-b border-gray-200">
                                         <Tab.List className="-mb-px flex space-x-8 px-4">
-                                            {navigation.categories.map((category) => (
+                                            {menu.map((category) => category.children.length > 0 && (
                                                 <Tab
-                                                    key={category.name}
+                                                    key={category.id}
                                                     className={({selected}) =>
                                                         classNames(
                                                             selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent',
@@ -212,70 +214,45 @@ const MainMenu: FC = () => {
                                                         )
                                                     }
                                                 >
-                                                    {category.name}
+                                                    {category.title}
                                                 </Tab>
                                             ))}
                                         </Tab.List>
                                     </div>
                                     <Tab.Panels as={Fragment}>
-                                        {navigation.categories.map((category) => (
-                                            <Tab.Panel key={category.name} className="space-y-10 px-4 pt-10 pb-8">
-                                                {category.sections.map((section) => (
-                                                    <div key={section.id}>
+                                        {menu.map((category) => (
+                                            <Tab.Panel key={category.id} className="space-y-10 px-4 pt-10 pb-8">
+
+                                                    <div>
                                                         <ul
                                                             role="list"
-                                                            aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
+                                                            aria-labelledby={`${category.id}-heading-mobile`}
                                                             className="mt-6 flex flex-col space-y-6"
                                                         >
-                                                            {section.items.map((item) => (
-                                                                <li key={item.name} className="flow-root">
-                                                                    <a href={item.href}
+                                                            {category.children.map((item) => (
+                                                                <li key={item.id} className="flow-root">
+                                                                    <a href={`/catalog/${item.url}`}
                                                                        className="-m-2 block p-2 text-gray-500">
-                                                                        {item.name}
+                                                                        {item.title}
                                                                     </a>
                                                                 </li>
                                                             ))}
                                                         </ul>
                                                     </div>
-                                                ))}
+
                                             </Tab.Panel>
                                         ))}
                                     </Tab.Panels>
                                 </Tab.Group>
 
                                 <div className="space-y-6 border-t border-gray-200 py-6 px-4">
-                                    {navigation.pages.map((page) => (
-                                        <div key={page.name} className="flow-root">
-                                            <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
-                                                {page.name}
+                                    {menu.map((page) => page.children.length === 0 && (
+                                        <div key={page.id} className="flow-root">
+                                            <a href={page.url} className="-m-2 block p-2 font-medium text-gray-900">
+                                                {page.title}
                                             </a>
                                         </div>
                                     ))}
-                                </div>
-
-                                <div className="space-y-6 border-t border-gray-200 py-6 px-4">
-                                    <div className="flow-root">
-                                        <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                                            Sign in
-                                        </a>
-                                    </div>
-                                    <div className="flow-root">
-                                        <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                                            Create account
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div className="border-t border-gray-200 py-6 px-4">
-                                    <a href="#" className="-m-2 flex items-center p-2">
-                                        <img
-                                            src="https://tailwindui.com/img/flags/flag-canada.svg"
-                                            alt=""
-                                            className="block h-auto w-5 flex-shrink-0"
-                                        />
-                                        <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
-                                        <span className="sr-only">, change currency</span>
-                                    </a>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
@@ -295,8 +272,8 @@ const MainMenu: FC = () => {
                         </button>
 
                         {/* Flyout menus */}
-                        <Popover.Group className="hidden lg:block lg:self-stretch">
-                            <div className="flex h-full space-x-8">
+                        <Popover.Group className="hidden lg:block lg:self-stretch w-full">
+                            <div className="flex h-full space-x-8 w-full">
                                 {menu.map((category) => category.children.length > 0 && (
                                     <Popover key={category.title} className="flex">
                                         {({open}) => (
@@ -307,7 +284,10 @@ const MainMenu: FC = () => {
                                                             open
                                                                 ? 'border-indigo-600 text-indigo-600'
                                                                 : 'border-transparent text-gray-700 hover:text-gray-800',
-                                                            'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out'
+                                                            'relative z-10 -mb-px flex items-center border-b-2 pt-px text-base font-medium transition-colors duration-200 ease-out pl-9 pr-3.5',
+                                                            category.url === 'dog' ? styles.dog : '',
+                                                            category.url === 'cat' ? styles.cat : '',
+                                                            styles.menuItemParent
                                                         )}
                                                     >
                                                         {category.title}
@@ -324,7 +304,7 @@ const MainMenu: FC = () => {
                                                     leaveTo="opacity-0"
                                                 >
                                                     <Popover.Panel
-                                                        className="absolute z-50 inset-x-0 top-full text-sm text-gray-500">
+                                                        className="absolute z-50 inset-x-0 top-full text-base text-gray-500">
                                                         {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                                                         <div className="absolute inset-0 top-1/2 bg-white shadow"
                                                              aria-hidden="true"/>
@@ -332,23 +312,23 @@ const MainMenu: FC = () => {
                                                         <div className="relative bg-white">
                                                             <div className="mx-auto px-2">
                                                                 <div
-                                                                    className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
+                                                                    className="grid grid-cols-2 gap-y-10 gap-x-8 pt-4 pb-6">
                                                                     <div
                                                                         className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
 
                                                                         <div>
-                                                                            <Link id={`${category.title}-heading`}
+                                                                            <Link id={`${category.url}-heading`}
                                                                                   className="font-medium text-gray-900"
                                                                                   href={`/catalog/${category.url}`}>
                                                                                 {category.title}
                                                                             </Link>
                                                                             <ul
                                                                                 role="list"
-                                                                                aria-labelledby={`${category.title}-heading`}
+                                                                                aria-labelledby={`${category.url}-heading`}
                                                                                 className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                                                             >
                                                                                 {category.children.map((item) => (
-                                                                                    <li key={item.title}
+                                                                                    <li key={item.url}
                                                                                         className="flex">
                                                                                         <Link
                                                                                             href={`/catalog/${item.url}`}
@@ -374,7 +354,7 @@ const MainMenu: FC = () => {
                                     <a
                                         key={page.id}
                                         href={page.url}
-                                        className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                                        className={`flex items-center text-base font-medium text-gray-700 hover:text-gray-800 ${page.icon_class && page.icon_class.includes('last') ? styles.last : ''}`}
                                     >
                                         {page.title}
                                     </a>

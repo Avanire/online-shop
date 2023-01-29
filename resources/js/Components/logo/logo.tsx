@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {STORAGE_URL} from "../../Utils/constans";
+import {STORAGE_URL} from "../../utils/constans";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {Link, usePage} from "@inertiajs/react";

@@ -1,4 +1,4 @@
 import {createEffect} from "effector";
-import {subscriptionRequest} from "../../Utils/api";
+import {subscriptionRequest} from "../../utils/api";
 
 export const fetchSubscribeFx = createEffect((params: string) => subscriptionRequest(params));

@@ -1,9 +1,11 @@
-import {addToCart, clearCart, removeFromCart} from "./event";
-import {$cart} from "./store";
+import {addToCart, clearCart, removeFromCart, toggleCart} from "./event";
+import {$cart, $cartState} from "./store";
 
 export const modelCart = {
     addToCart,
     clearCart,
     removeFromCart,
-    $cart
+    $cart,
+    toggleCart,
+    $cartState
 }

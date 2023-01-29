@@ -1,6 +1,6 @@
 import {FC} from "react";
-import {IArticle} from "../../Utils/types";
-import {STORAGE_URL} from "../../Utils/constans";
+import {IArticle} from "../../utils/types";
+import {STORAGE_URL} from "../../utils/constans";
 import { format } from 'date-fns'
 import {Link} from "@inertiajs/react";
 

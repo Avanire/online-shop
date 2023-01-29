@@ -1,5 +1,5 @@
 import {createEffect} from "effector";
-import {getProduct, getProducts, getProductsByCategory} from "../../Utils/api";
+import {getProduct, getProducts, getProductsByCategory} from "../../utils/api";
 
 export const fetchProductFx = createEffect(getProducts);
 export const fetchProductByCategoryFx = createEffect((params: string) => getProductsByCategory(params));

@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {STORAGE_URL} from "../../utils/constans";
 import {modelCart} from "../../models/cart";
-import {IProductCard} from "../../Utils/types";
+import {IProductCard} from "../../utils/types";
 
 const ProductCard: FC<IProductCard> = ({product}) => {
 

@@ -1,13 +1,12 @@
 import {FC, Fragment, useState} from "react";
-import {STORAGE_URL} from "../../utils/constans";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {Dialog, Disclosure, Menu, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
 import {ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon} from '@heroicons/react/20/solid';
 import {classNames} from "../../utils/utils";
-import {Link} from "@inertiajs/react";
-import {ICategoryCard} from "../../Utils/types";
+import {ICategoryCard} from "../../utils/types";
+import Product from "../product/product";
 
 
 const sortOptions = [
@@ -18,15 +17,6 @@ const sortOptions = [
     {name: 'Newest', href: '#', current: false},
     {name: 'Price: Low to High', href: '#', current: false},
     {name: 'Price: High to Low', href: '#', current: false},
-]
-const subCategories = [
-
-
-    {name: 'Totes', href: '#'},
-    {name: 'Backpacks', href: '#'},
-    {name: 'Travel Bags', href: '#'},
-    {name: 'Hip Bags', href: '#'},
-    {name: 'Laptop Sleeves', href: '#'},
 ]
 const filters = [
 
@@ -68,7 +58,7 @@ const filters = [
     },
 ]
 
-const Category: FC<ICategoryCard> = ({category}) => {
+const Category: FC<ICategoryCard> = ({category, subCategories}) => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
     return (
@@ -119,7 +109,7 @@ const Category: FC<ICategoryCard> = ({category}) => {
                                         <ul role="list" className="px-2 py-3 font-medium text-gray-900">
                                             {subCategories.map((category) => (
                                                 <li key={category.name}>
-                                                    <a href={category.href} className="block px-2 py-3">
+                                                    <a href={category.alias} className="block px-2 py-3">
                                                         {category.name}
                                                     </a>
                                                 </li>
@@ -257,7 +247,7 @@ const Category: FC<ICategoryCard> = ({category}) => {
                                     className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                                     {subCategories.map((category) => (
                                         <li key={category.name}>
-                                            <a href={category.href}>{category.name}</a>
+                                            <a href={category.alias}>{category.name}</a>
                                         </li>
                                     ))}
                                 </ul>
@@ -310,23 +300,11 @@ const Category: FC<ICategoryCard> = ({category}) => {
 
                             {/* Product grid */}
                             <div className="lg:col-span-3">
-                                <div className="flex flex-wrap gap-10">
+                                <div className="grid grid-cols-4 gap-x-5 gap-y-20">
                                     {!category ? <div className={`w-full`}><Skeleton count={8} inline={true} width={280}
                                                                                      height={444} className={`mr-5`}/>
                                     </div> : category.products.map((product) => (
-                                        <Link key={product.id} href={`${category.alias}/${product.alias}`}
-                                              className="group basis-1/5">
-                                            <div
-                                                className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
-                                                <img
-                                                    src={`${STORAGE_URL}${product.image}`}
-                                                    alt={product.name}
-                                                    className="h-full w-full object-cover object-center group-hover:opacity-75"
-                                                />
-                                            </div>
-                                            <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-                                            <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
-                                        </Link>
+                                        <Product key={product.id} {...product} categoryUrl={category.alias} />
                                     ))}
                                 </div>
                             </div>

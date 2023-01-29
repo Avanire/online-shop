@@ -1,9 +1,9 @@
 import {FC} from "react";
-import {STORAGE_URL} from "../../Utils/constans";
+import {STORAGE_URL} from "../../utils/constans";
 // @ts-ignore
 import styles from './main-text.module.css';
 import {Link} from "@inertiajs/react";
-import {IMainText} from "../../Utils/types";
+import {IMainText} from "../../utils/types";
 
 const MainText: FC<IMainText> = ({heading, content, image}) => {
 

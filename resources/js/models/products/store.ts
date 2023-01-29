@@ -1,5 +1,5 @@
 import {createStore} from "effector";
-import {ICategory, IProduct} from "../../Utils/types";
+import {ICategory, IProduct} from "../../utils/types";
 
 export const $products = createStore<Array<IProduct>>([]);
 export const $productIsLoading = createStore<boolean>(false);

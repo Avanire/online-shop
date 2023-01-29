@@ -1,11 +1,10 @@
 import React, {FC} from "react";
-import {useStore} from "effector-react";
-import {modelMenu} from "../../models/menu";
 import MainCategory from "../main-category/main-category";
 import 'react-loading-skeleton/dist/skeleton.css';
+import {usePage} from "@inertiajs/react";
 
 const MainCategories: FC = () => {
-    const categories = useStore(modelMenu.$categories);
+    const categories = usePage().props.categories;
 
     return (
         <section className={`flex flex-wrap justify-between gap-4 mb-20`}>

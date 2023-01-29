@@ -1,4 +1,4 @@
 import {createEffect} from "effector";
-import {getMainText} from "../../Utils/api";
+import {getMainText} from "../../utils/api";
 
 export const fetchMainTextFx = createEffect(getMainText);

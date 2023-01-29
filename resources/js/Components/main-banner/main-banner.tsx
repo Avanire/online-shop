@@ -1,8 +1,8 @@
 import React, {FC} from "react";
 // @ts-ignore
 import styles from './main-banner.module.css';
-import {IBanner} from "../../Utils/types";
-import {STORAGE_URL} from "../../Utils/constans";
+import {IBanner} from "../../utils/types";
+import {STORAGE_URL} from "../../utils/constans";
 import {Link} from "@inertiajs/react";
 
 const MainBanner: FC<IBanner> = ({title, description, link, image}) => {

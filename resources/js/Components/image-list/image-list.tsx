@@ -1,6 +1,6 @@
 import React, {FC} from "react";
-import {IImageList} from "../../Utils/types";
-import {STORAGE_URL} from "../../Utils/constans";
+import {IImageList} from "../../utils/types";
+import {STORAGE_URL} from "../../utils/constans";
 // @ts-ignore
 import styles from "./image-list.module.css";
 import {Link} from "@inertiajs/react";

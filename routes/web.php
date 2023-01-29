@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ModalCartController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,7 @@ Route::group(['prefix' => 'catalog'], function () {
     Route::get('{category}/{product}', ProductController::class)->name('product');
 
 });
+Route::get('/cart', ModalCartController::class)->name('cart');
 
 
 Route::middleware([

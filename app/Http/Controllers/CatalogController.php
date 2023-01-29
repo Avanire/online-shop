@@ -17,7 +17,8 @@ class CatalogController extends Controller
     public function __invoke(Category $category)
     {
         return Inertia::render('Catalog/Catalog', [
-            'category' => $category->only('name', 'products', 'alias')
+            'category' => $category->only('name', 'products', 'alias'),
+            'subCategories' => $category->subCategory
         ]);
     }
 }

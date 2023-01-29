@@ -1,6 +1,6 @@
 import {FC} from "react";
-import {ISlide} from "../../Utils/types";
-import {STORAGE_URL} from "../../Utils/constans";
+import {ISlide} from "../../utils/types";
+import {STORAGE_URL} from "../../utils/constans";
 // @ts-ignore
 import arrowLeft from '../../../images/arrow-left.svg';
 // @ts-ignore

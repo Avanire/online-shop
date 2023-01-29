@@ -1,8 +1,8 @@
 import React, {FC} from "react";
-import {IMainCategory} from "../../Utils/types";
+import {IMainCategory} from "../../utils/types";
 // @ts-ignore
 import styles from './main-category.module.css'
-import {STORAGE_URL} from "../../Utils/constans";
+import {STORAGE_URL} from "../../utils/constans";
 import {Link} from "@inertiajs/react";
 
 const MainCategory: FC<IMainCategory> = ({name, link, children, image}) => {

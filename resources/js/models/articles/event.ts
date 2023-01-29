@@ -1,4 +1,4 @@
 import {createEvent} from "effector";
-import {IArticle} from "../../Utils/types";
+import {IArticle} from "../../utils/types";
 
 export const articleRequest = createEvent<Array<IArticle>>();

@@ -1,6 +1,6 @@
 import React, {FC} from "react";
-import {IProduct} from "../../Utils/types";
-import {RUB, STORAGE_URL} from "../../Utils/constans";
+import {IProduct} from "../../utils/types";
+import {RUB, STORAGE_URL} from "../../utils/constans";
 // @ts-ignore
 import styles from './product.module.css';
 import Button from "../button/button";
@@ -27,20 +27,21 @@ const Product: FC<IProduct> = ({
                                    old_price,
                                    hit,
                                    new_product,
-                                   charity
+                                   charity,
+                                   categoryUrl
                                }) => {
 
 
     return (
-        <section className={`basis-72 flex-grow shrink-0 flex flex-col`}>
-            <Link href={alias} className={`${styles.imageBlock} block mb-4 hover:no-underline`}>
+        <section className={`basis-52 flex-grow shrink-0 flex flex-col`}>
+            <Link href={`${categoryUrl}/${alias}`} className={`${styles.imageBlock} block mb-4 hover:no-underline`}>
                 <div className={`absolute top-2 left-2 flex gap-1`}>
                     {hit ? (<span><img src={hitImage} alt='хит'/></span>) : null}
                     {new_product ? (<span><img src={newImage} alt="новинка"/></span>) : null}
                 </div>
                 {old_price ? (
                     <span className={`${styles.tips} absolute bottom-3 left-3`}>-{Math.round(100 - (100 * (price / old_price)))}%</span>) : null}
-                <img src={STORAGE_URL + '/' + image} alt={name}/>
+                <img src={`${STORAGE_URL}${image}`} alt={name}/>
             </Link>
             <div className={`mb-2.5 flex gap-x-3 items-baseline`}>
                 {charity ? <img src={paw} alt=""/> : null}

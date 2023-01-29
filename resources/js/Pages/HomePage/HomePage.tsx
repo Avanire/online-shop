@@ -1,7 +1,7 @@
 import {FC, useEffect, useMemo} from "react";
 import MainCategories from "../../components/main-categories/main-categories";
 import MainBanner from "../../components/main-banner/main-banner";
-import {IHomePage, IProduct} from "../../Utils/types";
+import {IHomePage, IProduct} from "../../utils/types";
 import MainProduct from "../../components/main-product/main-product";
 import ImageList from "../../components/image-list/image-list";
 import Advantages from "../../components/advantages/advantages";

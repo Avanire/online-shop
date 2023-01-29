@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from "react";
 import Product from "../product/product";
-import {IMainProduct} from "../../Utils/types";
+import {IMainProduct} from "../../utils/types";
 // @ts-ignore
 import styles from './main-product.module.css';
 // @ts-ignore

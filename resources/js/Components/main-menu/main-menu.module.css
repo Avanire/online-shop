@@ -4,7 +4,6 @@
 }
 
 .menuItem {
-    padding: 0.5625rem 0.875rem;
     position: relative;
     color: var(--text-color);
 }
@@ -15,8 +14,6 @@
 
 .menuItemParent {
     composes: menuItem;
-    padding: 0.8125rem 2.125rem 0.8125rem 2.875rem;
-    transition: all 0.25ms linear;
 }
 
 .cat {
@@ -29,8 +26,8 @@
 .dog::before {
     position: absolute;
     content: '';
-    top: 10px;
-    left: 16px;
+    top: 21px;
+    left: 0;
     background-image: url("../../../images/Catface.svg");
     background-repeat: no-repeat;
     width: 24px;
@@ -50,8 +47,8 @@
     position: absolute;
     width: 10px;
     height: 10px;
-    top: 18px;
-    right: 17px;
+    top: 29px;
+    right: 0;
     cursor: pointer;
     background-repeat: no-repeat;
     background-image: url("../../../images/arrow-down-gray.svg");
@@ -96,5 +93,5 @@
 }
 
 .last {
-    margin-left: auto;
+    margin-left: auto !important;
 }

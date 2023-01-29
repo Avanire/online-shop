@@ -14,6 +14,10 @@ class Category extends Model
         return $this->belongsToMany(Product::class);
     }
 
+    public function subCategory() {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
     public function getRouteKeyName()
     {
         return 'alias';
