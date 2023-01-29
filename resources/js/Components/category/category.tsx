@@ -5,7 +5,7 @@ import {Dialog, Disclosure, Menu, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
 import {ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon} from '@heroicons/react/20/solid';
 import {classNames} from "../../utils/utils";
-import {ICategoryCard} from "../../utils/types";
+import {ICategory, ICategoryCard, ICategoryComponent} from "../../utils/types";
 import Product from "../product/product";
 
 
@@ -58,7 +58,7 @@ const filters = [
     },
 ]
 
-const Category: FC<ICategoryCard> = ({category, subCategories}) => {
+const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
     return (

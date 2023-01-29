@@ -1,9 +1,9 @@
 import React, {FC} from "react";
 import {STORAGE_URL} from "../../utils/constans";
 import {modelCart} from "../../models/cart";
-import {IProductCard} from "../../utils/types";
+import {IProductComponent} from "../../utils/types";
 
-const ProductCard: FC<IProductCard> = ({product}) => {
+const ProductCard: FC<IProductComponent> = ({product}) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

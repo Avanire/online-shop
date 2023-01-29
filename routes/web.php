@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ModalCartController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -20,12 +19,12 @@ use Inertia\Inertia;
 */
 
 Route::get('/', HomeController::class);
+
 Route::group(['prefix' => 'catalog'], function () {
     Route::get('{category}', CatalogController::class)->name('category');
     Route::get('{category}/{product}', ProductController::class)->name('product');
 
 });
-Route::get('/cart', ModalCartController::class)->name('cart');
 
 
 Route::middleware([

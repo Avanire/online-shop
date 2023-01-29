@@ -28,8 +28,14 @@ export interface IProduct {
     readonly categoryUrl: string;
 }
 
+export interface IProductComponent {
+    readonly product: IProduct;
+}
+
 export interface IProductCard {
     readonly product: IProduct;
+    readonly metaTitle: string;
+    readonly metaDescription: string;
 }
 
 export interface ICategory {
@@ -38,9 +44,16 @@ export interface ICategory {
     readonly alias: string;
 }
 
+export interface ICategoryComponent {
+    readonly category: ICategory;
+    readonly subCategories: Array<ICategory>;
+}
+
 export interface ICategoryCard {
     readonly category: ICategory;
     readonly subCategories: Array<ICategory>;
+    readonly metaTitle: string;
+    readonly metaDescription: string;
 }
 
 export interface IBanner {
