@@ -36,6 +36,8 @@ class HomeController extends Controller
             'mainText' => MainText::all()->first(),
             //Articles
             'articles' => ArticleCategory::find(1)->article,
+            'metaTitle' => setting('site.title'),
+            'metaDescription' => setting('site.description')
         ]);
     }
 }

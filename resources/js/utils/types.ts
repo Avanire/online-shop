@@ -106,6 +106,8 @@ export interface IHomePage {
     readonly brands: Array<IImage>;
     readonly mainText: IMainText;
     readonly articles: Array<IArticle>;
+    readonly metaDescription: string;
+    readonly metaTitle: string;
 }
 
 export interface IMainCategory {

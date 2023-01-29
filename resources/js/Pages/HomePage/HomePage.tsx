@@ -13,7 +13,7 @@ import SiteLayout from "../../Layouts/SiteLayout";
 import {modelSliders} from "../../models/sliders";
 import {modelArticles} from "../../models/articles";
 
-const HomePage: FC<IHomePage> = ({slides, products, banners, brands, mainText, articles}) => {
+const HomePage: FC<IHomePage> = ({slides, products, banners, brands, mainText, articles, metaTitle, metaDescription}) => {
     const headingStock = 'Акции';
     const linkStock = '#';
     const headingPopular = 'Популярное';
@@ -48,7 +48,7 @@ const HomePage: FC<IHomePage> = ({slides, products, banners, brands, mainText, a
     }, [articles]);
 
     return (
-        <SiteLayout title='Главная'>
+        <SiteLayout title={metaTitle} description={metaDescription}>
             <main className={`container mx-auto`}>
                 <MainSlider/>
                 <MainCategories/>
