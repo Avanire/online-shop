@@ -5,8 +5,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
     plugins: [
         laravel({
-            input: 'resources/js/App.js',
-            ssr: 'resources/js/ssr.js',
+            input: 'resources/js/app.jsx',
+            ssr: 'resources/js/ssr.jsx',
             refresh: true,
         }),
         react(),
@@ -14,9 +14,6 @@ export default defineConfig({
     resolve: name => {
         const pages = import.meta.glob('./Pages/**/*.tsx', { eager: true })
         return pages[`./Pages/${name}.tsx`]
-    },
-    esbuild: {
-        jsxInject: `import React from 'react'`,
     },
     server: {
         https: false,
