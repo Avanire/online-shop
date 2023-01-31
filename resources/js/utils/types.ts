@@ -26,6 +26,8 @@ export interface IProduct {
     readonly description: string;
     count: number;
     readonly categoryUrl: string;
+    readonly weight: number;
+    readonly pet_age: string;
 }
 
 export interface IProductComponent {

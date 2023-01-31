@@ -1,11 +1,11 @@
-import {FC, Fragment, useState} from "react";
+import React, {FC, Fragment, SyntheticEvent, useCallback, useMemo, useState} from "react";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {Dialog, Disclosure, Menu, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
 import {ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon} from '@heroicons/react/20/solid';
 import {classNames} from "../../utils/utils";
-import {ICategory, ICategoryCard, ICategoryComponent} from "../../utils/types";
+import {ICategoryComponent, IProduct} from "../../utils/types";
 import Product from "../product/product";
 
 
@@ -18,48 +18,110 @@ const sortOptions = [
     {name: 'Price: Low to High', href: '#', current: false},
     {name: 'Price: High to Low', href: '#', current: false},
 ]
-const filters = [
-
-
-    {
-        id: 'color',
-        name: 'Color',
-        options: [
-            {value: 'white', label: 'White', checked: false},
-            {value: 'beige', label: 'Beige', checked: false},
-            {value: 'blue', label: 'Blue', checked: true},
-            {value: 'brown', label: 'Brown', checked: false},
-            {value: 'green', label: 'Green', checked: false},
-            {value: 'purple', label: 'Purple', checked: false},
-        ],
-    },
-    {
-        id: 'category',
-        name: 'Category',
-        options: [
-            {value: 'new-arrivals', label: 'New Arrivals', checked: false},
-            {value: 'sale', label: 'Sale', checked: false},
-            {value: 'travel', label: 'Travel', checked: true},
-            {value: 'organization', label: 'Organization', checked: false},
-            {value: 'accessories', label: 'Accessories', checked: false},
-        ],
-    },
-    {
-        id: 'size',
-        name: 'Size',
-        options: [
-            {value: '2l', label: '2L', checked: false},
-            {value: '6l', label: '6L', checked: false},
-            {value: '12l', label: '12L', checked: false},
-            {value: '18l', label: '18L', checked: false},
-            {value: '20l', label: '20L', checked: false},
-            {value: '40l', label: '40L', checked: true},
-        ],
-    },
-]
 
 const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+    const [filterWeight, setFilterWeight] = useState<Array<number>>([]);
+    const [filterAge, setFilterAge] = useState<Array<string>>([]);
+    const products = category.products;
+
+    const filtered = useMemo(() => {
+        return products.map(product => {
+            if (filterWeight.length > 0) {
+                for (let i = 0; i < filterWeight.length; i++) {
+                    if (filterWeight[i] === product.weight) {
+                        return product;
+                    }
+                }
+            }
+            if (filterAge.length > 0) {
+                for (let i = 0; i < filterAge.length; i++) {
+                    if (filterAge[i] === product.pet_age) {
+                        return product;
+                    }
+                }
+            }
+        }).filter(n => n);
+    }, [filterAge, filterWeight]);
+    
+    const weight = useMemo(() => {
+        const allWeight = category.products.map(item => item.weight);
+        return Array.from(new Set(allWeight)).map(item => {
+            return {
+                value: item,
+                label: item,
+                checked: false
+            }
+        });
+    }, [category]);
+
+    const age = useMemo(() => {
+        const allAge = category.products.map(item => item.pet_age);
+        return Array.from(new Set(allAge)).map(item => {
+            return {
+                value: item,
+                label: item,
+                checked: false
+            }
+        });
+    }, [category]);
+
+    const type = [];
+
+    const handleFilterWeight = useCallback((e) => {
+        if (e.target.checked) {
+            setFilterWeight(prevState => {
+                return [...prevState, +e.target.value]
+            })
+        } else {
+            const pos = filterWeight.indexOf(Number(e.target.value));
+            
+            setFilterWeight((prevState) => {
+                prevState.splice(pos, 1);
+                return [...prevState];
+            });
+        }
+    }, []);
+    
+    const handleFilterAge = useCallback((e) => {
+        if (e.target.checked) {
+            setFilterAge(prevState => {
+                return [...prevState, e.target.value]
+            })
+        } else {
+            const pos = filterWeight.indexOf(e.target.value);
+            
+            setFilterAge((prevState) => {
+                prevState.splice(pos, 1);
+                return [...prevState];
+            });
+        }
+    }, []);
+
+    const handleFilterType = (e) => {
+
+    }
+    
+    const filters = [
+        {
+            id: 'weight',
+            name: 'Вес',
+            options: weight,
+            handleFuncttion: handleFilterWeight
+        },
+        {
+            id: 'age',
+            name: 'Возраст',
+            options: age,
+            handleFuncttion: handleFilterAge
+        },
+        {
+            id: 'type',
+            name: 'Вид',
+            options: type,
+            handleFuncttion: handleFilterType
+        }
+    ];
 
     return (
         <div className="bg-white">
@@ -252,7 +314,7 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                                     ))}
                                 </ul>
 
-                                {filters.map((section) => (
+                                {filters.map((section) => section.options.length > 0 && (
                                     <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
                                         {({open}) => (
                                             <>
@@ -281,6 +343,7 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                                                                     type="checkbox"
                                                                     defaultChecked={option.checked}
                                                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                                    onChange={section.handleFuncttion}
                                                                 />
                                                                 <label
                                                                     htmlFor={`filter-${section.id}-${optionIdx}`}
@@ -301,9 +364,11 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                             {/* Product grid */}
                             <div className="lg:col-span-3">
                                 <div className="grid grid-cols-4 gap-x-5 gap-y-20">
-                                    {!category ? <div className={`w-full`}><Skeleton count={8} inline={true} width={280}
+                                    {products.length === 0 ? <div className={`w-full`}><Skeleton count={8} inline={true} width={280}
                                                                                      height={444} className={`mr-5`}/>
-                                    </div> : category.products.map((product) => (
+                                    </div> : filtered.length > 0 ? filtered.map((product) => product && (
+                                        <Product key={product.id} {...product} categoryUrl={category.alias} />
+                                    )) : products.map((product) => (
                                         <Product key={product.id} {...product} categoryUrl={category.alias} />
                                     ))}
                                 </div>
