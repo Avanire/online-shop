@@ -4,6 +4,7 @@ import {MinusIcon, PlusIcon} from "@heroicons/react/20/solid";
 import {ICategoryFilter} from "../../utils/types";
 
 const MobileCategoryFilter: FC<ICategoryFilter> = ({filters, subCategories}) => {
+
     return (
         <form className="mt-4 border-t border-gray-200">
             <h3 className="sr-only">Categories</h3>
@@ -48,6 +49,7 @@ const MobileCategoryFilter: FC<ICategoryFilter> = ({filters, subCategories}) => 
                                                 type="checkbox"
                                                 defaultChecked={option.checked}
                                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                onChange={section.handleFunction}
                                             />
                                             <label
                                                 htmlFor={`filter-mobile-${section.id}-${optionIdx}`}

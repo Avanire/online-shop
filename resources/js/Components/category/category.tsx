@@ -1,19 +1,9 @@
-import React, {
-    ChangeEvent,
-    FC,
-    FormEventHandler,
-    Fragment,
-    MouseEventHandler,
-    useCallback,
-    useEffect,
-    useMemo,
-    useState
-} from "react";
+import React, {ChangeEvent, FC, Fragment, useCallback, useEffect, useMemo, useState} from "react";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {Dialog, Menu, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
-import {ChevronDownIcon, FunnelIcon, Squares2X2Icon} from '@heroicons/react/20/solid';
+import {ChevronDownIcon, FunnelIcon} from '@heroicons/react/20/solid';
 import {classNames} from "../../utils/utils";
 import {ICategoryComponent, IProduct, ISortOptions} from "../../utils/types";
 import Product from "../product/product";
@@ -44,15 +34,16 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
         }
     }
 
-    const products = category.products.sort(sortPriceProduct);
+    const products = category.products;
 
-    const filtered = useMemo(() => {
-        return products.map(product => {
+    const filtered = useMemo((): Array<IProduct> => {
+        const filterArray = new Set<IProduct>();
+        products.forEach(product => {
             //Первое свойство в фильтре
             if (filterWeight.length > 0) {
                 for (let i = 0; i < filterWeight.length; i++) {
                     if (filterWeight[i] === product.weight) {
-                        return product;
+                        filterArray.add(product);
                     }
                 }
             }
@@ -60,15 +51,16 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
             if (filterAge.length > 0) {
                 for (let i = 0; i < filterAge.length; i++) {
                     if (filterAge[i] === product.pet_age) {
-                        return product;
+                        filterArray.add(product);
                     }
                 }
             }
-        }).filter(n => n).sort(sortPriceProduct);
-    }, [filterAge, filterWeight]);
+        });
+        return Array.from(filterArray);
+    }, [filterAge, filterWeight, products]);
 
     const weight = useMemo(() => {
-        const allWeight = products.map(item => item.weight).filter(n => n);
+        const allWeight = products.sort((a, b) => a.price - b.price).map(item => item.weight).filter(n => n);
         return Array.from(new Set(allWeight)).map(item => {
             return {
                 value: item,
@@ -76,7 +68,7 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                 checked: filterWeight.includes(item)
             }
         });
-    }, [products]);
+    }, [products, filterWeight]);
 
     const age = useMemo(() => {
         const allAge = category.products.map(item => item.pet_age).filter(n => n);
@@ -106,7 +98,10 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
 
     const handleChangeSort = (option: ISortOptions) => {
         setPriceSort(option.type);
-        sortOptions = [...sortOptions].map(item => item.type === option.type ? {...item, current: true} : {...item, current: false});
+        sortOptions = [...sortOptions].map(item => item.type === option.type ? {...item, current: true} : {
+            ...item,
+            current: false
+        });
     }
 
     useEffect(() => {
@@ -268,9 +263,9 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                                     {products.length === 0 ?
                                         <div className={`w-full`}><Skeleton count={8} inline={true} width={280}
                                                                             height={444} className={`mr-5`}/>
-                                        </div> : filtered.length > 0 ? filtered.map((product) => product && (
+                                        </div> : filtered.length > 0 ? filtered.sort(sortPriceProduct).map((product) => product && (
                                             <Product key={product.id} {...product} categoryUrl={category.alias}/>
-                                        )) : products.map((product) => (
+                                        )) : products.sort(sortPriceProduct).map((product) => (
                                             <Product key={product.id} {...product} categoryUrl={category.alias}/>
                                         ))}
                                 </div>
