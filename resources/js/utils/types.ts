@@ -159,3 +159,9 @@ export interface ISortOptions {
     readonly current: boolean;
     readonly type: string;
 }
+
+export interface IBreadcrumbItem {
+    readonly title: string;
+    readonly url: string;
+    readonly current?: boolean;
+}

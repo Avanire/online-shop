@@ -18,7 +18,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::get('/', HomeController::class)->name('home');
 
 Route::group(['prefix' => 'catalog'], function () {
     Route::get('{category}', CatalogController::class)->name('category');

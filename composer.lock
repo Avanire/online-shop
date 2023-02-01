@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "793e1953982b773efef688bff0d8aee8",
+    "content-hash": "96c5bcedbaab6763bbe02c87d9d1d1d0",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -303,6 +303,77 @@
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.2"
             },
             "time": "2022-10-27T11:44:00+00:00"
+        },
+        {
+            "name": "diglactic/laravel-breadcrumbs",
+            "version": "v8.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/diglactic/laravel-breadcrumbs.git",
+                "reference": "b2c594e56fd15ef3112436e2067dca13131dd990"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/diglactic/laravel-breadcrumbs/zipball/b2c594e56fd15ef3112436e2067dca13131dd990",
+                "reference": "b2c594e56fd15ef3112436e2067dca13131dd990",
+                "shasum": ""
+            },
+            "require": {
+                "facade/ignition-contracts": "^1.0",
+                "laravel/framework": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+                "php": "^7.2 || ^8.0"
+            },
+            "conflict": {
+                "davejamesmiller/laravel-breadcrumbs": "*"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.10 || ^5.9 || ^6.4 || ^7.0",
+                "php-coveralls/php-coveralls": "^2.4",
+                "phpunit/phpunit": "^8.5 || ^9.4",
+                "spatie/phpunit-snapshot-assertions": "^2.2 || ^4.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Diglactic\\Breadcrumbs\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Breadcrumbs": "Diglactic\\Breadcrumbs\\Breadcrumbs"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Diglactic\\Breadcrumbs\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sheng Slogar",
+                    "email": "sheng@diglactic.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Dave James Miller",
+                    "email": "dave@davejamesmiller.com",
+                    "role": "Original Creator"
+                }
+            ],
+            "description": "A simple Laravel-style way to create breadcrumbs.",
+            "homepage": "https://github.com/diglactic/laravel-breadcrumbs",
+            "keywords": [
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/diglactic/laravel-breadcrumbs/issues",
+                "source": "https://github.com/diglactic/laravel-breadcrumbs/tree/v8.0.1"
+            },
+            "time": "2022-09-02T16:18:17+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -936,6 +1007,59 @@
                 }
             ],
             "time": "2023-01-14T14:17:03+00:00"
+        },
+        {
+            "name": "facade/ignition-contracts",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facade/ignition-contracts.git",
+                "reference": "3c921a1cdba35b68a7f0ccffc6dffc1995b18267"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facade/ignition-contracts/zipball/3c921a1cdba35b68a7f0ccffc6dffc1995b18267",
+                "reference": "3c921a1cdba35b68a7f0ccffc6dffc1995b18267",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^v2.15.8",
+                "phpunit/phpunit": "^9.3.11",
+                "vimeo/psalm": "^3.17.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Facade\\IgnitionContracts\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://flareapp.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Solution contracts for Ignition",
+            "homepage": "https://github.com/facade/ignition-contracts",
+            "keywords": [
+                "contracts",
+                "flare",
+                "ignition"
+            ],
+            "support": {
+                "issues": "https://github.com/facade/ignition-contracts/issues",
+                "source": "https://github.com/facade/ignition-contracts/tree/1.0.2"
+            },
+            "time": "2020-10-16T08:27:54+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -4067,6 +4191,151 @@
                 }
             ],
             "time": "2023-01-12T18:13:24+00:00"
+        },
+        {
+            "name": "robertboes/inertia-breadcrumbs",
+            "version": "0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RobertBoes/inertia-breadcrumbs.git",
+                "reference": "277479fdfc1a72f6960502ef0c21aab8cb405c0f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RobertBoes/inertia-breadcrumbs/zipball/277479fdfc1a72f6960502ef0c21aab8cb405c0f",
+                "reference": "277479fdfc1a72f6960502ef0c21aab8cb405c0f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.0",
+                "inertiajs/inertia-laravel": "^0.5.2 || ^0.6.2",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.11.0"
+            },
+            "require-dev": {
+                "composer/composer": "^2.1",
+                "diglactic/laravel-breadcrumbs": "^7.0",
+                "glhd/gretel": "^1.5",
+                "nunomaduro/collision": "^6.0",
+                "nunomaduro/larastan": "^2.0",
+                "orchestra/testbench": "^7.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.4",
+                "spatie/laravel-ray": "^1.28",
+                "spatie/ray": "^1.33",
+                "tabuna/breadcrumbs": "^3.0"
+            },
+            "suggest": {
+                "diglactic/laravel-breadcrumbs": "Manage and configure breadcrumbs with diglactic/laravel-breadcrumbs",
+                "glhd/gretel": "Manage and configure breadcrumbs with glhd/gretel",
+                "tabuna/breadcrumbs": "Manage and configure breadcrumbs with tabuna/breadcrumbs"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RobertBoes\\InertiaBreadcrumbs\\InertiaBreadcrumbsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RobertBoes\\InertiaBreadcrumbs\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Boes",
+                    "email": "github@robertboes.nl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel package to automatically generates breadcrumbs for your Inertia app",
+            "homepage": "https://github.com/robertboes/inertia-breadcrumbs",
+            "keywords": [
+                "breadcrumbs",
+                "inertia-breadcrumbs",
+                "inertiajs",
+                "laravel",
+                "robertboes"
+            ],
+            "support": {
+                "issues": "https://github.com/RobertBoes/inertia-breadcrumbs/issues",
+                "source": "https://github.com/RobertBoes/inertia-breadcrumbs/tree/0.2.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/RobertBoes",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-06-24T21:52:57+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.14.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "b477dd2f89d0751f0e51ffb3a70181f0bc7ab8df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/b477dd2f89d0751f0e51ffb3a70181f0bc7ab8df",
+                "reference": "b477dd2f89d0751f0e51ffb3a70181f0bc7ab8df",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0",
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^9.5.24",
+                "spatie/pest-plugin-test-time": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.14.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-27T15:33:45+00:00"
         },
         {
             "name": "symfony/console",

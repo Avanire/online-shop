@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import {STORAGE_URL} from "../../utils/constans";
 import {modelCart} from "../../models/cart";
 import {IProductComponent} from "../../utils/types";
-import {Link} from "@inertiajs/react";
+import {Link, usePage} from "@inertiajs/react";
 import HeaderButton from "../header-button/header-button";
 //@ts-ignore
 import Bookmark from "../../../images/Bookmark.svg";
