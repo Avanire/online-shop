@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, Fragment, useCallback, useEffect, useMemo, useState} from "react";
+import React, {ChangeEvent, FC, FormEvent, Fragment, useCallback, useEffect, useMemo, useState} from "react";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {Dialog, Menu, Transition} from '@headlessui/react';
@@ -9,6 +9,7 @@ import {ICategoryComponent, IProduct, ISortOptions} from "../../utils/types";
 import Product from "../product/product";
 import CategoryFilter from "../category-filter/category-filter";
 import MobileCategoryFilter from "../mobile-category-filter/mobile-category-filter";
+import {modelCart} from "../../models/cart";
 
 let sortOptions = [
     {name: 'Цена: Сначала дешевая', current: true, type: 'asc'},

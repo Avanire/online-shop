@@ -18,10 +18,12 @@ class ProductController extends Controller
      */
     public function __invoke(Category $category, Product $product)
     {
+
         return Inertia::render('Product/Product', [
             'product'           => $product,
             'metaTitle'         => $product->meta_title,
-            'metaDescription'   => $product->meta_description
+            'metaDescription'   => $product->meta_description,
+            'unionProducts'     => [...$category->products->where('product_name', $product->product_name)]
         ]);
     }
 }

@@ -28,16 +28,20 @@ export interface IProduct {
     readonly categoryUrl: string;
     readonly weight: number;
     readonly pet_age: string;
+    readonly article: string;
+    readonly weight_unit: string;
 }
 
 export interface IProductComponent {
     readonly product: IProduct;
+    readonly unionProducts: Array<IProduct>;
 }
 
 export interface IProductCard {
     readonly product: IProduct;
     readonly metaTitle: string;
     readonly metaDescription: string;
+    readonly unionProducts: Array<IProduct>;
 }
 
 export interface ICategory {
