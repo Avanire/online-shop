@@ -1,49 +1,50 @@
-import React, {ChangeEvent, FC, Fragment, useCallback, useEffect, useMemo, useState} from "react";
+import React, {
+    ChangeEvent,
+    FC,
+    FormEventHandler,
+    Fragment,
+    MouseEventHandler,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState
+} from "react";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {Dialog, Menu, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
 import {ChevronDownIcon, FunnelIcon, Squares2X2Icon} from '@heroicons/react/20/solid';
 import {classNames} from "../../utils/utils";
-import {ICategoryComponent} from "../../utils/types";
+import {ICategoryComponent, IProduct, ISortOptions} from "../../utils/types";
 import Product from "../product/product";
 import CategoryFilter from "../category-filter/category-filter";
 import MobileCategoryFilter from "../mobile-category-filter/mobile-category-filter";
 
-const sortOptions = [
-    {name: 'Most Popular', href: '#', current: true},
-    {name: 'Best Rating', href: '#', current: false},
-    {name: 'Newest', href: '#', current: false},
-    {name: 'Price: Low to High', href: '#', current: false},
-    {name: 'Price: High to Low', href: '#', current: false},
+let sortOptions = [
+    {name: 'Цена: Сначала дешевая', current: true, type: 'asc'},
+    {name: 'Цена: Сначала дорогая', current: false, type: 'desc'},
 ]
+
 let params = new URLSearchParams((new URL(window.location.href)).searchParams);
+
 //TODO сделать более простую для масштабирования фильтрацию
 const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+    const [priceSort, setPriceSort] = useState('asc');
+
     const [filterWeight, setFilterWeight] = useState<Array<number>>([]);
     const [filterAge, setFilterAge] = useState<Array<string>>([]);
-    const products = category.products;
 
-    useEffect(() => {
-        if (!!filterWeight.length) {
-            params.set('weight', filterWeight.join('_'));
-            window.history.pushState(null, '', `?${params}`);
+    const sortPriceProduct = (a: IProduct, b: IProduct) => {
+        if (priceSort === 'asc') {
+            return a.price - b.price;
         } else {
-            window.history.replaceState(null, '', window.location.pathname);
+            return b.price - a.price;
         }
-    }, [filterWeight]);
+    }
 
-    useEffect(() => {
-        if (params.has('weight')) {
-            const paramsWeight = params.get('weight')?.split('_').map(Number);
-            setFilterWeight(paramsWeight || []);
-        }
-
-        return () => {
-            params = new URLSearchParams();
-        }
-    }, []);
+    const products = category.products.sort(sortPriceProduct);
 
     const filtered = useMemo(() => {
         return products.map(product => {
@@ -63,7 +64,7 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                     }
                 }
             }
-        }).filter(n => n);
+        }).filter(n => n).sort(sortPriceProduct);
     }, [filterAge, filterWeight]);
 
     const weight = useMemo(() => {
@@ -75,10 +76,10 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                 checked: filterWeight.includes(item)
             }
         });
-    }, [products, filterWeight]);
+    }, [products]);
 
     const age = useMemo(() => {
-        const allAge = products.map(item => item.pet_age).filter(n => n);
+        const allAge = category.products.map(item => item.pet_age).filter(n => n);
         return Array.from(new Set(allAge)).map(item => {
             return {
                 value: item,
@@ -103,6 +104,30 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
         }
     }, [filterWeight]);
 
+    const handleChangeSort = (option: ISortOptions) => {
+        setPriceSort(option.type);
+        sortOptions = [...sortOptions].map(item => item.type === option.type ? {...item, current: true} : {...item, current: false});
+    }
+
+    useEffect(() => {
+        if (!!filterWeight.length) {
+            params.set('weight', filterWeight.join('_'));
+            window.history.pushState(null, '', `?${params}`);
+        } else {
+            window.history.replaceState(null, '', window.location.pathname);
+        }
+    }, [filterWeight]);
+
+    useEffect(() => {
+        if (params.has('weight')) {
+            const paramsWeight = params.get('weight')?.split('_').map(Number);
+            setFilterWeight(paramsWeight || []);
+        }
+
+        return () => {
+            params = new URLSearchParams();
+        }
+    }, []);
 
     const filters = [
         {
@@ -172,7 +197,7 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                                 <div>
                                     <Menu.Button
                                         className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                                        Sort
+                                        Сортировка
                                         <ChevronDownIcon
                                             className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                             aria-hidden="true"
@@ -190,21 +215,21 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                                     leaveTo="transform opacity-0 scale-95"
                                 >
                                     <Menu.Items
-                                        className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                        className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <div className="py-1">
                                             {sortOptions.map((option) => (
                                                 <Menu.Item key={option.name}>
                                                     {({active}) => (
-                                                        <a
-                                                            href={option.href}
+                                                        <span
                                                             className={classNames(
                                                                 option.current ? 'font-medium text-gray-900' : 'text-gray-500',
                                                                 active ? 'bg-gray-100' : '',
                                                                 'block px-4 py-2 text-sm'
                                                             )}
+                                                            onClick={() => handleChangeSort(option)}
                                                         >
                                                             {option.name}
-                                                        </a>
+                                                        </span>
                                                     )}
                                                 </Menu.Item>
                                             ))}
@@ -213,10 +238,10 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                                 </Transition>
                             </Menu>
 
-                            <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
+                            {/*<button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
                                 <span className="sr-only">View grid</span>
                                 <Squares2X2Icon className="h-5 w-5" aria-hidden="true"/>
-                            </button>
+                            </button>*/}
                             <button
                                 type="button"
                                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"

@@ -149,3 +149,9 @@ export interface IFilter {
     readonly label: string | number;
     readonly checked: boolean;
 }
+
+export interface ISortOptions {
+    readonly name: string;
+    readonly current: boolean;
+    readonly type: string;
+}
