@@ -1,4 +1,4 @@
-import {SyntheticEvent} from "react";
+import {ChangeEvent, SyntheticEvent} from "react";
 
 export interface IMenu {
     readonly id: number;
@@ -130,4 +130,22 @@ export interface IMainText {
     heading: string;
     content: string;
     image: string;
+}
+
+export interface ICategoryFilter {
+    readonly filters: Array<IFilters>;
+    readonly subCategories: Array<ICategory>;
+}
+
+export interface IFilters {
+    readonly id: string;
+    readonly name: string;
+    readonly options: Array<IFilter>,
+    readonly handleFunction: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+export interface IFilter {
+    readonly value: string | number;
+    readonly label: string | number;
+    readonly checked: boolean;
 }

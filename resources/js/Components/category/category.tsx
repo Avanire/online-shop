@@ -1,32 +1,53 @@
-import React, {FC, Fragment, SyntheticEvent, useCallback, useMemo, useState} from "react";
+import React, {ChangeEvent, FC, Fragment, useCallback, useEffect, useMemo, useState} from "react";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import {Dialog, Disclosure, Menu, Transition} from '@headlessui/react';
+import {Dialog, Menu, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
-import {ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon} from '@heroicons/react/20/solid';
+import {ChevronDownIcon, FunnelIcon, Squares2X2Icon} from '@heroicons/react/20/solid';
 import {classNames} from "../../utils/utils";
-import {ICategoryComponent, IProduct} from "../../utils/types";
+import {ICategoryComponent} from "../../utils/types";
 import Product from "../product/product";
-
+import CategoryFilter from "../category-filter/category-filter";
+import MobileCategoryFilter from "../mobile-category-filter/mobile-category-filter";
 
 const sortOptions = [
-
-
     {name: 'Most Popular', href: '#', current: true},
     {name: 'Best Rating', href: '#', current: false},
     {name: 'Newest', href: '#', current: false},
     {name: 'Price: Low to High', href: '#', current: false},
     {name: 'Price: High to Low', href: '#', current: false},
 ]
-
+let params = new URLSearchParams((new URL(window.location.href)).searchParams);
+//TODO сделать более простую для масштабирования фильтрацию
 const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [filterWeight, setFilterWeight] = useState<Array<number>>([]);
     const [filterAge, setFilterAge] = useState<Array<string>>([]);
     const products = category.products;
 
+    useEffect(() => {
+        if (!!filterWeight.length) {
+            params.set('weight', filterWeight.join('_'));
+            window.history.pushState(null, '', `?${params}`);
+        } else {
+            window.history.replaceState(null, '', window.location.pathname);
+        }
+    }, [filterWeight]);
+
+    useEffect(() => {
+        if (params.has('weight')) {
+            const paramsWeight = params.get('weight')?.split('_').map(Number);
+            setFilterWeight(paramsWeight || []);
+        }
+
+        return () => {
+            params = new URLSearchParams();
+        }
+    }, []);
+
     const filtered = useMemo(() => {
         return products.map(product => {
+            //Первое свойство в фильтре
             if (filterWeight.length > 0) {
                 for (let i = 0; i < filterWeight.length; i++) {
                     if (filterWeight[i] === product.weight) {
@@ -34,6 +55,7 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                     }
                 }
             }
+            //Второе свойство в фильтре
             if (filterAge.length > 0) {
                 for (let i = 0; i < filterAge.length; i++) {
                     if (filterAge[i] === product.pet_age) {
@@ -43,20 +65,20 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
             }
         }).filter(n => n);
     }, [filterAge, filterWeight]);
-    
+
     const weight = useMemo(() => {
-        const allWeight = category.products.map(item => item.weight);
+        const allWeight = products.map(item => item.weight).filter(n => n);
         return Array.from(new Set(allWeight)).map(item => {
             return {
                 value: item,
                 label: item,
-                checked: false
+                checked: filterWeight.includes(item)
             }
         });
-    }, [category]);
+    }, [products, filterWeight]);
 
     const age = useMemo(() => {
-        const allAge = category.products.map(item => item.pet_age);
+        const allAge = products.map(item => item.pet_age).filter(n => n);
         return Array.from(new Set(allAge)).map(item => {
             return {
                 value: item,
@@ -64,62 +86,30 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                 checked: false
             }
         });
-    }, [category]);
+    }, [products]);
 
-    const type = [];
-
-    const handleFilterWeight = useCallback((e) => {
+    const handleFilterWeight = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) {
             setFilterWeight(prevState => {
                 return [...prevState, +e.target.value]
             })
         } else {
             const pos = filterWeight.indexOf(Number(e.target.value));
-            
+
             setFilterWeight((prevState) => {
                 prevState.splice(pos, 1);
                 return [...prevState];
             });
         }
-    }, []);
-    
-    const handleFilterAge = useCallback((e) => {
-        if (e.target.checked) {
-            setFilterAge(prevState => {
-                return [...prevState, e.target.value]
-            })
-        } else {
-            const pos = filterWeight.indexOf(e.target.value);
-            
-            setFilterAge((prevState) => {
-                prevState.splice(pos, 1);
-                return [...prevState];
-            });
-        }
-    }, []);
+    }, [filterWeight]);
 
-    const handleFilterType = (e) => {
 
-    }
-    
     const filters = [
         {
             id: 'weight',
             name: 'Вес',
             options: weight,
-            handleFuncttion: handleFilterWeight
-        },
-        {
-            id: 'age',
-            name: 'Возраст',
-            options: age,
-            handleFuncttion: handleFilterAge
-        },
-        {
-            id: 'type',
-            name: 'Вид',
-            options: type,
-            handleFuncttion: handleFilterType
+            handleFunction: handleFilterWeight
         }
     ];
 
@@ -166,65 +156,7 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                                     </div>
 
                                     {/* Filters */}
-                                    <form className="mt-4 border-t border-gray-200">
-                                        <h3 className="sr-only">Categories</h3>
-                                        <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                                            {subCategories.map((category) => (
-                                                <li key={category.name}>
-                                                    <a href={category.alias} className="block px-2 py-3">
-                                                        {category.name}
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-
-                                        {filters.map((section) => (
-                                            <Disclosure as="div" key={section.id}
-                                                        className="border-t border-gray-200 px-4 py-6">
-                                                {({open}) => (
-                                                    <>
-                                                        <h3 className="-mx-2 -my-3 flow-root">
-                                                            <Disclosure.Button
-                                                                className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                                                                <span
-                                                                    className="font-medium text-gray-900">{section.name}</span>
-                                                                <span className="ml-6 flex items-center">
-                                  {open ? (
-                                      <MinusIcon className="h-5 w-5" aria-hidden="true"/>
-                                  ) : (
-                                      <PlusIcon className="h-5 w-5" aria-hidden="true"/>
-                                  )}
-                                </span>
-                                                            </Disclosure.Button>
-                                                        </h3>
-                                                        <Disclosure.Panel className="pt-6">
-                                                            <div className="space-y-6">
-                                                                {section.options.map((option, optionIdx) => (
-                                                                    <div key={option.value}
-                                                                         className="flex items-center">
-                                                                        <input
-                                                                            id={`filter-mobile-${section.id}-${optionIdx}`}
-                                                                            name={`${section.id}[]`}
-                                                                            defaultValue={option.value}
-                                                                            type="checkbox"
-                                                                            defaultChecked={option.checked}
-                                                                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                                                            className="ml-3 min-w-0 flex-1 text-gray-500"
-                                                                        >
-                                                                            {option.label}
-                                                                        </label>
-                                                                    </div>
-                                                                ))}
-                                                            </div>
-                                                        </Disclosure.Panel>
-                                                    </>
-                                                )}
-                                            </Disclosure>
-                                        ))}
-                                    </form>
+                                    <MobileCategoryFilter filters={filters} subCategories={subCategories}/>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
@@ -302,75 +234,20 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                         </h2>
 
                         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                            {/* Filters */}
-                            <form className="hidden lg:block">
-                                <h3 className="sr-only">Categories</h3>
-                                <ul role="list"
-                                    className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                                    {subCategories.map((category) => (
-                                        <li key={category.name}>
-                                            <a href={category.alias}>{category.name}</a>
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                {filters.map((section) => section.options.length > 0 && (
-                                    <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
-                                        {({open}) => (
-                                            <>
-                                                <h3 className="-my-3 flow-root">
-                                                    <Disclosure.Button
-                                                        className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                                                        <span
-                                                            className="font-medium text-gray-900">{section.name}</span>
-                                                        <span className="ml-6 flex items-center">
-                              {open ? (
-                                  <MinusIcon className="h-5 w-5" aria-hidden="true"/>
-                              ) : (
-                                  <PlusIcon className="h-5 w-5" aria-hidden="true"/>
-                              )}
-                            </span>
-                                                    </Disclosure.Button>
-                                                </h3>
-                                                <Disclosure.Panel className="pt-6">
-                                                    <div className="space-y-4">
-                                                        {section.options.map((option, optionIdx) => (
-                                                            <div key={option.value} className="flex items-center">
-                                                                <input
-                                                                    id={`filter-${section.id}-${optionIdx}`}
-                                                                    name={`${section.id}[]`}
-                                                                    defaultValue={option.value}
-                                                                    type="checkbox"
-                                                                    defaultChecked={option.checked}
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                                    onChange={section.handleFuncttion}
-                                                                />
-                                                                <label
-                                                                    htmlFor={`filter-${section.id}-${optionIdx}`}
-                                                                    className="ml-3 text-sm text-gray-600"
-                                                                >
-                                                                    {option.label}
-                                                                </label>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </Disclosure.Panel>
-                                            </>
-                                        )}
-                                    </Disclosure>
-                                ))}
-                            </form>
+                            {/*Filters*/}
+                            <CategoryFilter filters={filters} subCategories={subCategories}/>
 
                             {/* Product grid */}
                             <div className="lg:col-span-3">
                                 <div className="grid grid-cols-4 gap-x-5 gap-y-20">
-                                    {products.length === 0 ? <div className={`w-full`}><Skeleton count={8} inline={true} width={280}
-                                                                                     height={444} className={`mr-5`}/>
-                                    </div> : filtered.length > 0 ? filtered.map((product) => product && (
-                                        <Product key={product.id} {...product} categoryUrl={category.alias} />
-                                    )) : products.map((product) => (
-                                        <Product key={product.id} {...product} categoryUrl={category.alias} />
-                                    ))}
+                                    {products.length === 0 ?
+                                        <div className={`w-full`}><Skeleton count={8} inline={true} width={280}
+                                                                            height={444} className={`mr-5`}/>
+                                        </div> : filtered.length > 0 ? filtered.map((product) => product && (
+                                            <Product key={product.id} {...product} categoryUrl={category.alias}/>
+                                        )) : products.map((product) => (
+                                            <Product key={product.id} {...product} categoryUrl={category.alias}/>
+                                        ))}
                                 </div>
                             </div>
                         </div>
