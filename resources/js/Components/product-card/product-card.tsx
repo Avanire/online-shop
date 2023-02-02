@@ -15,6 +15,8 @@ import hitImage from '../../../images/hit.webp';
 // @ts-ignore
 import newImage from '../../../images/new.webp';
 // @ts-ignore
+import paymentBlock from '../../../images/payment-card.svg';
+// @ts-ignore
 import styles from './product-card.module.css';
 import uuid from "react-uuid";
 import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/20/solid";
@@ -64,9 +66,9 @@ const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
     return (
         <section className={`container mx-auto`}>
             <h1 className={`text-2xl font-medium text-headerColor mb-8`}>{product.name}</h1>
-            <div className={`grid grid-cols-3 gap-x-10 mb-20`}>
-                <div>
-                    <div className={`bg-bgColor p-8 rounded-3xl relative mb-6 w-[420px]`}>
+            <section className={`grid grid-cols-3 gap-x-10 mb-20`}>
+                <div className={``}>
+                    <div className={`bg-bgColor p-8 rounded-3xl relative mb-6`}>
                         <div className={`absolute top-5 left-5 flex gap-1`}>
                             {product.hit ? (<span><img src={hitImage} alt='хит'/></span>) : null}
                             {product.new_product ? (<span><img src={newImage} alt="новинка"/></span>) : null}
@@ -166,7 +168,53 @@ const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
                         <div>Наличными курьеру</div>
                     </div>
                 </div>
-            </div>
+            </section>
+            <nav className={`flex gap-x-16 py-5 px-8 bg-purpleBg rounded-lg mb-11`}>
+                <div className={`text-mainPurple`}>Описание</div>
+                <div>Оплата и доставка</div>
+            </nav>
+            {
+                product.description &&
+                (
+                    <section>
+                        <h3 className={`mb-5 text-2xl`}>Описание</h3>
+                        <div dangerouslySetInnerHTML={{__html: product.description}} />
+                    </section>
+                )
+            }
+            <section className={`my-20`}>
+                <h3 className={`mb-6 text-2xl`}>Способы оплаты</h3>
+                <div className={`flex gap-x-7`}>
+                    <div className={`rounded-xl border border-[#E5E7EB] p-6 max-w-[370px]`}>
+                        <img src={paymentBlock} alt="" className={`mb-3.5`}/>
+                        <div className={`text-headerColor mb-3.5 font-medium`}>Онлайн-оплата пластиковой картой</div>
+                        <div className={`text-sm font-normal`}>Осуществляется по России. Воспользуйтесь калькулятором доставки ниже для вашего региона.</div>
+                    </div>
+                    <div className={`rounded-xl border border-[#E5E7EB] p-6 max-w-[370px]`}>
+                        <img src={paymentBlock} alt="" className={`mb-3.5`}/>
+                        <div className={`text-headerColor mb-3.5 font-medium`}>Оплата курьеру при доставке</div>
+                        <div className={`text-sm font-normal`}>Осуществляется по России. Воспользуйтесь калькулятором доставки ниже для вашего региона.</div>
+                    </div>
+                    <div className={`rounded-xl border border-[#E5E7EB] p-6 max-w-[370px]`}>
+                        <img src={paymentBlock} alt="" className={`mb-3.5`}/>
+                        <div className={`text-headerColor mb-3.5 font-medium`}>QR от Сбера</div>
+                        <div className={`text-sm font-normal`}>Осуществляется по России. Воспользуйтесь калькулятором доставки ниже для вашего региона.</div>
+                    </div>
+                </div>
+                <h3 className={`mb-6 mt-20 text-2xl`}>Способы доставки</h3>
+                <div className={`flex gap-x-7`}>
+                    <div className={`rounded-xl border border-[#E5E7EB] p-6 max-w-[370px]`}>
+                        <img src={paymentBlock} alt="" className={`mb-3.5`}/>
+                        <div className={`text-headerColor mb-3.5 font-medium`}>Курьерская доставка</div>
+                        <div className={`text-sm font-normal`}>Осуществляется по России. Воспользуйтесь калькулятором доставки ниже для вашего региона.</div>
+                    </div>
+                    <div className={`rounded-xl border border-[#E5E7EB] p-6 max-w-[370px]`}>
+                        <img src={paymentBlock} alt="" className={`mb-3.5`}/>
+                        <div className={`text-headerColor mb-3.5 font-medium`}>Получить из магазина</div>
+                        <div className={`text-sm font-normal`}>Возможность получить товары в ближайшем магазине в день оформления заказа.</div>
+                    </div>
+                </div>
+            </section>
         </section>
     );
 }
