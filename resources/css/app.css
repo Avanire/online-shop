@@ -9,13 +9,6 @@
     src: url('../fonts/golos-text_regular.woff') format('woff');
 }
 
-@font-face {
-    font-family: 'Golos';
-    font-style: normal;
-    font-weight: 700;
-    src: url('../fonts/golos-text_bold.woff') format('woff');
-}
-
 @layer base {
     :root {
         box-sizing: border-box;
@@ -44,9 +37,7 @@
 
 body {
     margin: 0;
-    font-family: 'Golos', Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Golos', sans-serif;
     background: var(--white-color);
 }
 
@@ -68,7 +59,6 @@ a:active {
 h2 {
     font-weight: 700;
     line-height: 41px;
-    color: var(--text-color);
     font-size: 2.125rem;
 }
 

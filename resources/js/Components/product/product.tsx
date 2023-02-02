@@ -5,17 +5,18 @@ import {RUB, STORAGE_URL} from "../../utils/constans";
 import styles from './product.module.css';
 import Button from "../button/button";
 // @ts-ignore
-import hitImage from '../../../images/hit.svg';
+import hitImage from '../../../images/hit.webp';
 // @ts-ignore
-import newImage from '../../../images/new.svg';
+import newImage from '../../../images/new.webp';
 // @ts-ignore
 import star from '../../../images/Feedbackstar.svg';
 // @ts-ignore
 import paw from '../../../images/paws.svg';
 // @ts-ignore
-import bookmark from '../../../images/Bookmark-product.svg';
+import bookmark from '../../../images/Heart.svg';
 import {Link} from "@inertiajs/react";
 import {modelCart} from "../../models/cart";
+import HeaderButton from "../header-button/header-button";
 
 const Product: FC<IProduct> = (product) => {
 
@@ -53,7 +54,6 @@ const Product: FC<IProduct> = (product) => {
             </div>
             <div className={`flex mt-auto gap-x-3`}>
                 <button onClick={handleAddToCart} className={`rounded-lg font-semibold py-3 px-7 text-base text-white bg-mainPurple hover:bg-purple-500`}>В корзину</button>
-                <Link href={``} className={`p-3`}><img src={bookmark} alt=""/></Link>
             </div>
         </section>
     );

@@ -1,0 +1,24 @@
+.oldPrice {
+    position: relative;
+}
+.oldPrice::before {
+    border-bottom: 1px solid #9CA3AF;
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 50%;
+    transform: rotate(-9deg);
+}
+.available {
+    position: relative;
+}
+.available::before {
+    content: '';
+    background-color: #12B052;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 40%;
+}

@@ -4,7 +4,7 @@ import {Link} from "@inertiajs/react";
 interface IHeaderButton {
     readonly image: string;
     readonly link: string;
-    readonly text: string;
+    readonly text?: string;
     readonly handleFunction?: () => void;
 }
 

@@ -30,6 +30,7 @@ export interface IProduct {
     readonly pet_age: string;
     readonly article: string;
     readonly weight_unit: string;
+    readonly images: string;
 }
 
 export interface IProductComponent {
