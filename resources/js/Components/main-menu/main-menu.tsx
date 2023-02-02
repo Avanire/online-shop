@@ -205,7 +205,7 @@ const MainMenu: FC = () => {
                                     <a
                                         key={page.id}
                                         href={page.url}
-                                        className={`flex items-center text-base font-medium text-gray-700 hover:text-gray-800 ${page.icon_class && page.icon_class.includes('last') ? styles.last : ''}`}
+                                        className={`flex items-center text-base font-medium hover:text-gray-800 ${page.icon_class && page.icon_class.includes('last') ? `${styles.last} text-mainPurple` : 'text-gray-700'}`}
                                     >
                                         {page.title}
                                     </a>

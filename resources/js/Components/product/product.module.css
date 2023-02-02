@@ -21,7 +21,6 @@
 }
 .brand {
     composes: name;
-    color: var(--product-brand-color);
 }
 .price {
     color: var(--text-color);
