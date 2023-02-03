@@ -43,7 +43,7 @@ const FooterTop: FC = () => {
                 <Link href='' className={`${styles.menuItem}`}>Подбор корма</Link>
                 <Link href='' className={`${styles.menuItem}`}>Сравнение кормов</Link>
                 <Link href='' className={`${styles.menuItem}`}>Партнерская программа</Link>
-                <Link href='' className={`${styles.menuItem}`}>Статьи</Link>
+                <Link href='/articles' className={`${styles.menuItem}`}>Статьи</Link>
             </FooterMenu>
             <FooterMenu name='Компания'>
                 <Link href='' className={`${styles.menuItem}`}>Новости</Link>

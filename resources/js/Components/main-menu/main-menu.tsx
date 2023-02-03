@@ -135,7 +135,7 @@ const MainMenu: FC = () => {
                                                             open
                                                                 ? 'border-indigo-600 text-indigo-600'
                                                                 : 'border-transparent text-gray-700 hover:text-gray-800',
-                                                            'relative z-10 -mb-px flex items-center border-b-2 pt-px text-base font-medium transition-colors duration-200 ease-out pl-9 pr-3.5',
+                                                            'relative z-10 -mb-px flex items-center border-b-2 pt-px text-base font-medium transition-colors duration-200 ease-out pl-9 pr-3.5 focus-visible:outline-none',
                                                             category.url === 'dog' ? styles.dog : '',
                                                             category.url === 'cat' ? styles.cat : '',
                                                             styles.menuItemParent
