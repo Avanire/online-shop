@@ -1,0 +1,52 @@
+.description p {
+    margin-bottom: 32px;
+    font-size: 18px;
+    line-height: 160%;
+}
+.description h2 {
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 130%;
+    margin-top: 60px;
+    margin-bottom: 24px;
+}
+.description ul {
+    padding-left: 32px;
+}
+.description li {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    margin-bottom: 16px;
+    position: relative;
+}
+.description ul li::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #764AEF;
+    left: -16px;
+    top: 40%;
+}
+.description ol {
+    list-style-type: none;
+    counter-reset: num;
+    padding-left: 56px;
+}
+.description ol li {
+    position: relative;
+}
+.description ol li::before {
+    content: counter(num);
+    counter-increment: num;
+    position: absolute;
+    left: -49px;
+    color: #FF5100;
+    background: rgba(255, 81, 0, 0.1);
+    padding: 3px 12px;
+    border-radius: 50%;
+    line-height: 150%;
+    font-weight: 600;
+}

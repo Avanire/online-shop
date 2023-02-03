@@ -1,5 +1,4 @@
 import {FC} from "react";
-// @ts-ignore
 import styles from './header-top-nav.module.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {Link, usePage} from "@inertiajs/react";

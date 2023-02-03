@@ -33,6 +33,18 @@ export interface IProduct {
     readonly images: string;
 }
 
+export interface IArticleComponent {
+    readonly article: IArticle;
+    readonly additional: Array<IArticle>;
+}
+
+export interface IArticlePage {
+    readonly article: IArticle;
+    readonly metaTitle: string;
+    readonly metaDescription: string;
+    readonly additional: Array<IArticle>;
+}
+
 export interface IProductComponent {
     readonly product: IProduct;
     readonly unionProducts: Array<IProduct>;
@@ -94,12 +106,16 @@ export interface ISlide {
 }
 
 export interface IArticle {
-    readonly id: number;
-    readonly name: string;
     readonly alias: string;
     readonly created_at: string;
+    readonly id: number;
     readonly image: string;
+    readonly meta_title: string;
+    readonly meta_description: string;
+    readonly name: string;
+    readonly text: string;
 }
+
 export interface IMenuItem {
     readonly id: number;
     readonly url: string;
@@ -165,4 +181,8 @@ export interface IBreadcrumbItem {
     readonly title: string;
     readonly url: string;
     readonly current?: boolean;
+}
+
+export interface IArticles {
+    readonly articles: Array<IArticle>;
 }

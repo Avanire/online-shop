@@ -42,10 +42,10 @@ class HandleInertiaRequests extends Middleware
             'logo'      => setting('site.logo'),
             'phone'     => setting('site.phone'),
             'workTime'  => setting('site.worktime'),
-            'email'  => setting('site.email'),
+            'email'     => setting('site.email'),
             //Menu
-            'mainMenu'  => menu('main', '_json'),
-            'topMenu'   => menu('topMenu', '_json'),
+            'mainMenu'  => [...menu('main', '_json')],
+            'topMenu'   => [...menu('topMenu', '_json')],
             'categories' => CategoryMenuService::getCategoriesMenu(),
         ]);
     }

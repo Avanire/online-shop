@@ -1,7 +1,6 @@
 import {FC} from "react";
 import {Link, usePage} from "@inertiajs/react";
 import uuid from 'react-uuid';
-//@ts-ignore
 import sep from '../../../images/separate.svg';
 
 

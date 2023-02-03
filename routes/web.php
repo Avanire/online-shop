@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -23,8 +25,10 @@ Route::get('/', HomeController::class)->name('home');
 Route::group(['prefix' => 'catalog'], function () {
     Route::get('{category}', CatalogController::class)->name('category');
     Route::get('{category}/{product}', ProductController::class)->name('product');
-
 });
+
+Route::get('articles', ArticlesController::class)->name('articles');
+Route::get('articles/{article}', ArticleController::class)->name('article');
 
 
 Route::middleware([
