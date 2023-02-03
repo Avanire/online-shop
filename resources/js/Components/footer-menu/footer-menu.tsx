@@ -9,7 +9,7 @@ interface IFooterMenu {
 const FooterMenu: FC<IFooterMenu> = ({name, extraClass, children}) => {
     return (
         <div className={extraClass}>
-            <div className={`text-[#99A3AA] mb-5`}>{name}</div>
+            <div className={`mb-5`}>{name}</div>
             {children}
         </div>
     );

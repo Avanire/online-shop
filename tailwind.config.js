@@ -34,7 +34,8 @@ module.exports = {
                 productLightGray: '#6B7280',
                 purpleBg: 'rgba(118, 74, 239, 0.07)',
                 orangeBg: '#FFF2EC',
-                available: '#12B052'
+                available: '#12B052',
+                gray: '#4B5563'
             },
             gridTemplateRows: {
                 '[auto,auto,1fr]': 'auto auto 1fr',

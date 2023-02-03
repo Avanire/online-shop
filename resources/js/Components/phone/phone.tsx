@@ -7,8 +7,7 @@ const Phone: FC = () => {
     const phone = usePage().props.phone;
 
     return (
-        !phone ? <Skeleton width={122} height={22}/> : <a className={`font-medium text-base text-[var(--text-color)]`}
-                                                          href={`tel:${phone.replace(/\D/g, '')}`}>{phone}</a>
+        !phone ? <Skeleton width={122} height={22}/> : <a href={`tel:${phone.replace(/\D/g, '')}`}>{phone}</a>
     );
 }
 
