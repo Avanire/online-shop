@@ -10,15 +10,15 @@ import Product from "../product/product";
 import CategoryFilter from "../category-filter/category-filter";
 import MobileCategoryFilter from "../mobile-category-filter/mobile-category-filter";
 
-let sortOptions = [
-    {name: 'Цена: Сначала дешевая', current: true, type: 'asc'},
-    {name: 'Цена: Сначала дорогая', current: false, type: 'desc'},
-]
-
 let params = new URLSearchParams((new URL(window.location.href)).searchParams);
 
 //TODO сделать более простую для масштабирования фильтрацию
 const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
+    let sortOptions = [
+        {name: 'Цена: Сначала дешевая', current: true, type: 'asc'},
+        {name: 'Цена: Сначала дорогая', current: false, type: 'desc'},
+    ]
+
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
     const [priceSort, setPriceSort] = useState('asc');
@@ -263,9 +263,9 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                                     <div className={`w-full`}><Skeleton count={8} inline={true} width={280}
                                                                         height={444} className={`mr-5`}/>
                                     </div> : filtered.length > 0 ? filtered.sort(sortPriceProduct).map((product) => product && (
-                                        <Product key={product.id} {...product} categoryUrl={category.alias}/>
+                                        <Product key={product.id} {...product} categoryUrl={product.category[0].alias}/>
                                     )) : products.sort(sortPriceProduct).map((product) => (
-                                        <Product key={product.id} {...product} categoryUrl={category.alias}/>
+                                        <Product key={product.id} {...product} categoryUrl={product.category[0].alias}/>
                                     ))}
                             </div>
                         </div>
