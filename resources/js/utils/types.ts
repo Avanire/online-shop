@@ -26,6 +26,7 @@ export interface IProduct {
     readonly description: string;
     count: number;
     readonly categoryUrl: string;
+    readonly category: Array<{readonly alias: string}>;
     readonly weight: number;
     readonly pet_age: string;
     readonly article: string;

@@ -1,10 +1,13 @@
 import {FC} from "react";
-import CartPopup from "../../Components/cart-popup/cart-popup";
+import SiteLayout from "../../Layouts/SiteLayout";
+import Cart from "../../Components/cart/cart";
 
-const Cart: FC = () => {
+const CartPage: FC = () => {
     return (
-        <CartPopup />
+        <SiteLayout title='Корзина' description='Корзина сайта CanadaZoo'>
+            <Cart />
+        </SiteLayout>
     );
 }
 
-export default Cart;
+export default CartPage;

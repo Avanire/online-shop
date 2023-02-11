@@ -27,7 +27,7 @@ const FooterTop: FC = () => {
                 </div>
             </div>
             <FooterMenu name='Каталог'>
-                {categories.map(item => <Link key={item.id} href={`catalog/${item.url}`}
+                {categories.map(item => <Link key={item.id} href={`/catalog/${item.url}`}
                                               className={`${styles.menuItem}`}>{item.title}</Link>)}
             </FooterMenu>
             <FooterMenu name='Покупателям'>

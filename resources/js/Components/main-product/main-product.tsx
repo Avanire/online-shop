@@ -1,11 +1,8 @@
 import React, {FC, useEffect, useState} from "react";
 import Product from "../product/product";
 import {IMainProduct} from "../../utils/types";
-// @ts-ignore
 import styles from './main-product.module.css';
-// @ts-ignore
 import nextBtn from '../../../images/slide-next.svg';
-// @ts-ignore
 import prevBtn from '../../../images/slide-prev.svg';
 import {Link} from "@inertiajs/react";
 
@@ -95,7 +92,7 @@ const MainProduct: FC<IMainProduct> = ({heading, linkStock, products, productToS
                         <div className={`flex transition ease-linear delay-250 gap-1 ${styles['show' + show]}`}
                              style={{transform: `translateX(-${currentIndex * (100 / show)}%)`}}
                         >
-                            {products.map(item => <Product key={item.id} {...item} />)}
+                            {products.map(item => <Product key={item.id} {...item} categoryUrl={item.category[0].alias} />)}
                         </div>
                     </div>
                     <button className={`${styles.rightArrow} -right-5`} onClick={next}><img src={nextBtn} alt=""/>
