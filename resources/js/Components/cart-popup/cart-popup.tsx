@@ -1,10 +1,11 @@
-import {FC, Fragment, SyntheticEvent, useMemo, useState} from "react";
-import { Dialog, Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import {FC, Fragment, SyntheticEvent, useMemo} from "react";
+import {Dialog, Transition} from '@headlessui/react';
+import {XMarkIcon} from '@heroicons/react/24/outline';
 import {useStore} from "effector-react";
 import {modelCart} from "../../models/cart";
 import {RUB, STORAGE_URL} from "../../utils/constans";
 import {IProduct} from "../../utils/types";
+import {Link} from "@inertiajs/react";
 
 const CartPopup: FC = () => {
     const cart = useStore(modelCart.$cart);
@@ -14,10 +15,14 @@ const CartPopup: FC = () => {
         return cart.reduce((total, item) => total + (item.price * item.count), 0);
     }, [cart])
 
-    const handleRemove = (e: SyntheticEvent, product:IProduct) => {
+    const handleRemove = (e: SyntheticEvent, product: IProduct) => {
         e.preventDefault();
 
         modelCart.removeFromCart(product);
+    }
+
+    const sortCartProduct = (a: IProduct, b: IProduct) => {
+        return ('' + a.name).localeCompare(b.name);
     }
 
     return (
@@ -32,7 +37,7 @@ const CartPopup: FC = () => {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-hidden">
@@ -51,7 +56,8 @@ const CartPopup: FC = () => {
                                     <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                                         <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                                             <div className="flex items-start justify-between">
-                                                <Dialog.Title className="text-lg font-medium text-gray-900">Корзина</Dialog.Title>
+                                                <Dialog.Title
+                                                    className="text-lg font-medium text-gray-900">Корзина</Dialog.Title>
                                                 <div className="ml-3 flex h-7 items-center">
                                                     <button
                                                         type="button"
@@ -59,7 +65,7 @@ const CartPopup: FC = () => {
                                                         onClick={() => modelCart.toggleCart(false)}
                                                     >
                                                         <span className="sr-only">Close panel</span>
-                                                        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                                                        <XMarkIcon className="h-6 w-6" aria-hidden="true"/>
                                                     </button>
                                                 </div>
                                             </div>
@@ -67,9 +73,10 @@ const CartPopup: FC = () => {
                                             <div className="mt-8">
                                                 <div className="flow-root">
                                                     <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                                        {cart.map((product) => (
+                                                        {cart.sort(sortCartProduct).map((product) => (
                                                             <li key={product.id} className="flex py-6">
-                                                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                                <div
+                                                                    className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                                     <img
                                                                         src={`${STORAGE_URL}${product.image}`}
                                                                         alt={product.name}
@@ -79,14 +86,16 @@ const CartPopup: FC = () => {
 
                                                                 <div className="ml-4 flex flex-1 flex-col">
                                                                     <div>
-                                                                        <div className="flex justify-between text-base font-medium text-gray-900">
+                                                                        <div
+                                                                            className="flex justify-between text-base font-medium text-gray-900">
                                                                             <div className={`text-headerColor text-md`}>
                                                                                 <a href={product.alias}>{product.name}</a>
                                                                             </div>
                                                                             <p className="ml-4">{product.price}{RUB}</p>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="flex flex-1 items-end justify-between text-sm">
+                                                                    <div
+                                                                        className="flex flex-1 items-end justify-between text-sm">
                                                                         <p className="text-gray-500">Кол-во {product.count}</p>
 
                                                                         <div className="flex">
@@ -113,12 +122,13 @@ const CartPopup: FC = () => {
                                                 <p>{total} {RUB}</p>
                                             </div>
                                             <div className="mt-6">
-                                                <a
-                                                    href="#"
+                                                <Link
+                                                    href="cart"
+                                                    onClick={() => modelCart.toggleCart(false)}
                                                     className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                                 >
                                                     Оформить заказ
-                                                </a>
+                                                </Link>
                                             </div>
                                             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                                 <p>

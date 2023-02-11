@@ -2,14 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: 'Golos';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../fonts/golos-text_regular.woff') format('woff');
-}
-
 @layer base {
+    @font-face {
+        font-family: 'Golos';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/golos-text_regular.woff') format('woff');
+    }
+
+    @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/Inter-Regular.woff') format('woff');
+    }
+
+    @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/Inter-Medium.woff') format('woff');
+    }
+
+    @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        src: url('../fonts/Inter-SemiBold.woff') format('woff');
+    }
+
+    @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/Inter-Bold.woff') format('woff');
+    }
+
     :root {
         box-sizing: border-box;
         --link-color: #677178;
@@ -27,18 +55,18 @@
         --menu-link: #494F54;
         --link-more: #6B7176;
     }
-}
 
-*,
-::before,
-::after {
-    box-sizing: inherit;
-}
+    *,
+    ::before,
+    ::after {
+        box-sizing: inherit;
+    }
 
-body {
-    margin: 0;
-    font-family: 'Golos', sans-serif;
-    background: var(--white-color);
+    body {
+        margin: 0;
+        background: var(--white-color);
+        font-family: 'Inter', sans-serif;
+    }
 }
 
 /*a:link {
