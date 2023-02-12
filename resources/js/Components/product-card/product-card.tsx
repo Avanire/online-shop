@@ -136,11 +136,11 @@ const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
                                 <span
                                     className={`px-1.5 py-1 text-white bg-productTipsColor font-bold rounded-md`}>-{Math.round(100 - (100 * (product.price / product.old_price)))}%</span>
                                 <span
-                                    className={`text-productSalesColor ${styles.oldPrice}`}>{product.old_price} {RUB}</span>
+                                    className={`text-productSalesColor ${styles.oldPrice}`}>{Intl.NumberFormat().format(product.old_price)} {RUB}</span>
                             </div>) : null
                         }
                         <div className={`flex items-center space-x-3 mb-2`}>
-                            <span className={`text-headerColor font-bold text-2xl`}>{product.price} {RUB}</span>
+                            <span className={`text-headerColor font-bold text-2xl`}>{Intl.NumberFormat().format(product.price)} {RUB}</span>
                             <span className={`text-mainPurple px-2 py-1 rounded-3xl bg-purpleBg`}>+58 бонусов</span>
                         </div>
                         <div className={`text-available pl-3 ${styles.available} mb-4`}>В наличии</div>

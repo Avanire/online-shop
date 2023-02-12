@@ -50,9 +50,9 @@ const Product: FC<IProduct> = (product) => {
             <div className={`mb-2.5 flex gap-x-3 items-baseline`}>
                 {product.charity ? <img src={paw} alt=""/> : null}
                 {product.old_price ?
-                    (<><span className={`${styles.newPrice}`}>{product.price} {RUB}</span> <span
-                        className={`${styles.oldPrice} line-through`}>{product.old_price} {RUB}</span></>) : (
-                        <span className={`${styles.price}`}>{product.price} {RUB}</span>)
+                    (<><span className={`${styles.newPrice}`}>{Intl.NumberFormat().format(product.price)} {RUB}</span> <span
+                        className={`${styles.oldPrice} line-through`}>{Intl.NumberFormat().format(product.old_price)} {RUB}</span></>) : (
+                        <span className={`${styles.price}`}>{Intl.NumberFormat().format(product.price)} {RUB}</span>)
                 }
             </div>
             <Link href={product.alias}

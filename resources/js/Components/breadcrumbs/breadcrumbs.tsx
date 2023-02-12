@@ -10,7 +10,7 @@ const Breadcrumbs: FC = () => {
         <section className={`container mx-auto pt-6 pb-8 flex items-center gap-x-2`}>
             {breadcrumbs.map((item, index) => index === breadcrumbs.length - 1 ? null :
                     <Link key={uuid()}
-                        className={`text-sm text-linkColor flex gap-x-2`}
+                        className={`text-sm text-linkColor flex gap-x-2 hover:text-mainPurple`}
                         href={item.url}
                     >
                         {item.title}

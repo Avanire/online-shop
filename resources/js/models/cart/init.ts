@@ -1,5 +1,5 @@
 import {$cart, $cartState} from './store';
-import {addToCart, clearCart, removeFromCart, toggleCart} from "./event";
+import {addToCart, clearCart, removeFromCart, toggleCart, removeOneProduct} from "./event";
 
 $cart
     .on(addToCart, (cart, currentProduct) => {
@@ -23,6 +23,9 @@ $cart
         } else {
             return [...cart].filter(item => currentProduct.alias !== item.alias);
         }
+    })
+    .on(removeOneProduct, (cart, currentProduct) => {
+        return [...cart].filter(item => item.alias !== currentProduct.alias);
     })
     .on(clearCart, () => {
         return $cart.defaultState;
