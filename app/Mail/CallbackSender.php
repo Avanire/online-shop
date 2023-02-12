@@ -41,7 +41,7 @@ class CallbackSender extends Mailable
     {
         return new Envelope(
             from: new Address('info@canadazoo.ru', ''),
-            to: new Address(env('ADMIN_EMAIL'), ''),
+            to: new Address(env('ADMIN_EMAIL', 'drtony@yandex.ru'), ''),
             subject: 'Обратный звонок',
         );
     }

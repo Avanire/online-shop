@@ -24,6 +24,6 @@ class CallbackController extends Controller
 
         Mail::to(env('ADMIN_EMAIL'))->send(new CallbackSender($request));
 
-        return response()->json(['statusText' => 'OK']);
+        return response()->json($request);
     }
 }
