@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
@@ -22,6 +23,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', HomeController::class)->name('home');
+Route::post('/', CallbackController::class);
 
 Route::group(['prefix' => 'catalog'], function () {
     Route::get('{category}', CatalogController::class)->name('category');

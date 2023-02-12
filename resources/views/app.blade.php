@@ -15,4 +15,5 @@
     <body>
         @inertia
     </body>
+    <script>window.Laravel = {csrfToken: '{{ csrf_token() }}'}</script>
 </html>

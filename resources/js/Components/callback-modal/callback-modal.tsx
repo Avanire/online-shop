@@ -1,7 +1,8 @@
-import React, {FC, useCallback, useState} from "react";
+import React, {FC, FormEvent, useCallback, useState} from "react";
 import catImage from '../../../images/callbackCat.webp';
 // @ts-ignore
 import InputMask from 'react-input-mask';
+import axios from "axios";
 
 const CallbackModal: FC = () => {
     const [inputName, setInputName] = useState('');
@@ -16,11 +17,19 @@ const CallbackModal: FC = () => {
         setInputTel(value);
     }, []);
 
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        axios.post('/', {
+            'name': inputName,
+            'phone': inputTel
+        }).then(res => console.log(res));
+    }
+
     return (
         <section className={`p-10`}>
             <img className={`mx-auto mb-8`} src={catImage} alt=""/>
             <h2 className={`font-medium text-2xl text-center mb-6`}>Заказать звонок</h2>
-            <form action="" method="POST" className={`flex flex-col gap-y-6 mb-6`}>
+            <form action="/" method="POST" className={`flex flex-col gap-y-6 mb-6`} onSubmit={handleSubmit}>
                 <label htmlFor="name" className={`flex flex-col`}>
                     <span className={`text-sm text-textColor mb-3.5`}>Имя</span>
                     <input type="text"
@@ -39,11 +48,14 @@ const CallbackModal: FC = () => {
                                onChange={handleChangeTel}
                                className={`p-4 rounded-xl border border-borderColor focus:border-mainPurple`}
                                placeholder='Телефон'
+                               name='phone'
+                               id='phone'
                     />
                 </label>
                 <button className={`rounded-xl bg-mainPurple text-white py-4`}>Заказать</button>
             </form>
-            <p className={`text-sm`}>Нажимая кнопку, вы соглашаетесь с Политикой конфиденциальности и Условиями использования</p>
+            <p className={`text-sm`}>Нажимая кнопку, вы соглашаетесь с Политикой конфиденциальности и Условиями
+                использования</p>
         </section>
     );
 }
