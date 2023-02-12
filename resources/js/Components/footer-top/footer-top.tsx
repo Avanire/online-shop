@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, useCallback} from "react";
 import Phone from "../phone/phone";
 import FooterMenu from "../footer-menu/footer-menu";
 import styles from "./footer-top.module.css";
@@ -7,9 +7,14 @@ import money from '../../../images/Group-2.webp';
 import visa from '../../../images/Group-3.webp';
 import mc from '../../../images/Group-4.webp';
 import mir from '../../../images/Group-11.webp';
+import {modelModal} from "../../models/modal";
 
 const FooterTop: FC = () => {
     const {address, email, workTime, categories} = usePage().props;
+
+    const handleOpenCallback = useCallback(() => {
+        modelModal.toggleModal(true);
+    }, []);
 
     return (
         <section className={`grid grid-cols-6 mb-12`}>
@@ -18,7 +23,7 @@ const FooterTop: FC = () => {
                 <div className={`mb-3.5 text-gray`}>{address}</div>
                 <a href={`mailto:${email}`} className={`mb-3.5 inline-block text-mainPurple`}>{email}</a>
                 <div className={`mb-6 text-gray`}>{workTime}</div>
-                <button className={`py-3.5 px-6 rounded-xl text-white bg-mainPurple mb-8`}>Заказать звонок</button>
+                <button className={`py-3.5 px-6 rounded-xl text-white bg-mainPurple mb-8`} onClick={handleOpenCallback}>Заказать звонок</button>
                 <div className={`flex space-x-5`}>
                     <img src={money} alt="" className={`object-contain`}/>
                     <img src={visa} alt="" className={`object-contain`}/>

@@ -1,11 +1,16 @@
-import {FC} from 'react';
+import {FC, useCallback} from 'react';
 import Phone from "../phone/phone";
+import {modelModal} from "../../models/modal";
 
 const HeaderPhoneBlock: FC = () => {
+    const handleOpenCallback = useCallback(() => {
+        modelModal.toggleModal(true);
+    }, []);
+
     return (
         <div className={`flex gap-x-3 items-center ml-auto`}>
             <Phone/>
-            <div className={`text-mainPurple text-bases cursor-pointer`}>Заказать звонок</div>
+            <button className={`text-mainPurple text-bases cursor-pointer`} onClick={handleOpenCallback}>Заказать звонок</button>
         </div>
     );
 }

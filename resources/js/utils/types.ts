@@ -1,4 +1,4 @@
-import {ChangeEvent, SyntheticEvent} from "react";
+import {ChangeEvent, ReactElement, SyntheticEvent} from "react";
 
 export interface IMenu {
     readonly id: number;
@@ -186,4 +186,9 @@ export interface IBreadcrumbItem {
 
 export interface IArticles {
     readonly articles: Array<IArticle>;
+}
+
+export interface IModalOverlay {
+    readonly onClose: () => void;
+    readonly children?: ReactElement;
 }

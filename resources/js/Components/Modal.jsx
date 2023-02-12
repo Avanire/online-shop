@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import closeIcon from '../../images/Clear.svg';
 
 export default function Modal({ children, show = false, maxWidth = '2xl', closeable = true, onClose = () => {} }) {
     const close = () => {
@@ -12,8 +13,8 @@ export default function Modal({ children, show = false, maxWidth = '2xl', closea
         sm: 'sm:max-w-sm',
         md: 'sm:max-w-md',
         lg: 'sm:max-w-lg',
-        xl: 'sm:max-w-xl',
-        '2xl': 'sm:max-w-2xl',
+        xl: 'sm:max-w-lg',
+        '2xl': 'sm:max-w-lg',
     }[maxWidth];
 
     return (
@@ -48,6 +49,7 @@ export default function Modal({ children, show = false, maxWidth = '2xl', closea
                     <Dialog.Panel
                         className={`mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
                     >
+                        <img src={closeIcon} alt="" className={`absolute right-4 top-4 cursor-pointer`} onClick={close}/>
                         {children}
                     </Dialog.Panel>
                 </Transition.Child>

@@ -5,6 +5,10 @@ import AppFooter from "../Components/app-footer/app-footer";
 import {Head} from "@inertiajs/react";
 import CartPopup from "../Components/cart-popup/cart-popup";
 import Breadcrumbs from "../Components/breadcrumbs/breadcrumbs";
+import Modal from "../Components/Modal";
+import CallbackModal from "../Components/callback-modal/callback-modal";
+import {useStore} from "effector-react";
+import {modelModal} from "../models/modal";
 
 export interface ISiteLayout {
     readonly children: ReactElement;
@@ -13,6 +17,11 @@ export interface ISiteLayout {
 }
 
 const SiteLayout: FC<ISiteLayout> = ({ children, title, description}) => {
+    const openCallback = useStore(modelModal.$modalStore);
+    const closeCallback = () => {
+        modelModal.toggleModal(false);
+    }
+
 
     return (
         <>
@@ -25,6 +34,7 @@ const SiteLayout: FC<ISiteLayout> = ({ children, title, description}) => {
             {children}
             <AppFooter  />
             <CartPopup />
+            <Modal show={openCallback} onClose={closeCallback}><CallbackModal /></Modal>
         </>
     );
 }
