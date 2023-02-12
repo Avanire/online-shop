@@ -55,7 +55,7 @@ const Product: FC<IProduct> = (product) => {
                         <span className={`${styles.price}`}>{Intl.NumberFormat().format(product.price)} {RUB}</span>)
                 }
             </div>
-            <Link href={product.alias}
+            <Link href={`/catalog/${product.categoryUrl}/${product.alias}`}
                   className={`${styles.name} inline-block mb-3 hover:no-underline`}>{product.name}</Link>
             <div className={`flex gap-x-3 items-center mb-3 mt-auto`}>
                 <div className={`flex`}>

@@ -1,36 +1,25 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useState} from "react";
 import {RUB, STORAGE_URL} from "../../utils/constans";
 import {modelCart} from "../../models/cart";
 import {IProduct, IProductComponent} from "../../utils/types";
 import {Link} from "@inertiajs/react";
 import HeaderButton from "../header-button/header-button";
-//@ts-ignore
 import Bookmark from "../../../images/Heart.svg";
-//@ts-ignore
 import delivery from '../../../images/ambulance.svg';
-//@ts-ignore
 import payment from '../../../images/payment.svg';
-// @ts-ignore
 import hitImage from '../../../images/hit.webp';
-// @ts-ignore
 import newImage from '../../../images/new.webp';
-// @ts-ignore
 import paymentBlock from '../../../images/payment-card.svg';
-// @ts-ignore
 import styles from './product-card.module.css';
 import uuid from "react-uuid";
 import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/20/solid";
-
-const sortPackage = (a: IProduct, b: IProduct) => {
-    return a.weight - b.weight;
-}
 
 const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
     const images: Array<string> | null = JSON.parse(product.images);
     const [currentImage, setCurrentImage] = useState<string>(product.image);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [length, setLength] = useState<number>(0);
-
+    console.log(product)
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -62,6 +51,10 @@ const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
             setLength(images.length);
         }
     }, [images]);
+
+    const sortPackage = useCallback((a: IProduct, b: IProduct) => {
+        return a.weight - b.weight;
+    }, []);
 
     return (
         <section className={`container mx-auto`}>
