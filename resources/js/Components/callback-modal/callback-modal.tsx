@@ -2,13 +2,17 @@ import React, {FC, FormEvent, useCallback, useState} from "react";
 import catImage from '../../../images/callbackCat.webp';
 // @ts-ignore
 import InputMask from 'react-input-mask';
-import axios from "axios";
-import mailIcon from '../../../images/177-envelope-mail-send-lineal.gif';
+import mailIcon from '../../../images/modal-success.webp';
+import mailSend from '../../../images/177-envelope-mail-send-lineal.gif';
+import {useStore} from "effector-react";
+import {modelModal} from "../../models/modal";
 
 const CallbackModal: FC = () => {
     const [inputName, setInputName] = useState('');
     const [inputTel, setInputTel] = useState('');
-    const [formSend, setFormSend] = useState(false);
+    const modalSend = useStore(modelModal.$modalCallbackFormSuccess);
+    const modalSending = useStore(modelModal.$modalCallbackFormLoading);
+    const modalSendFailed = useStore(modelModal.$modalCallbackFormFailed);
 
     const handleChangeName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setInputName(e.target.value);
@@ -21,19 +25,27 @@ const CallbackModal: FC = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        axios.post('/', {
+        const payload = {
             'name': inputName,
             'phone': inputTel
-        }).then(res => {
-            if (res.statusText === 'OK') {
-                setFormSend(true);
-            }
-        });
+        };
+        modelModal.sendCallbackRequest(payload);
+    }
+
+    if (modalSending) {
+        return (<div className={`text-center`}>
+            <img src={mailSend} alt="" className={`mx-auto`}/>
+            Отправляем...
+        </div>);
+    }
+
+    if (modalSendFailed) {
+        return (<div>Произошла ошибка. Попробуйте позже или свяжитесь с нами по телефону.</div>);
     }
 
     return (
         <section className={`p-10`}>
-            {!formSend ?
+            {!modalSend ?
                 <>
                     <img className={`mx-auto mb-8`} src={catImage} alt=""/>
                     <h2 className={`font-medium text-2xl text-center mb-6`}>Заказать звонок</h2>

@@ -1,7 +1,11 @@
-import {$modalStore} from "./store";
-import {toggleModal} from "./event";
+import {$modalStore, $modalCallbackFormFailed, $modalCallbackFormLoading, $modalCallbackFormSuccess} from "./store";
+import {toggleModal, sendCallbackRequest} from "./event";
 
 export const modelModal = {
     toggleModal,
-    $modalStore
+    sendCallbackRequest,
+    $modalStore,
+    $modalCallbackFormLoading,
+    $modalCallbackFormFailed,
+    $modalCallbackFormSuccess
 };

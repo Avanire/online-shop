@@ -1,4 +1,6 @@
 import {API_URL} from "./constans";
+import axios, {AxiosResponse} from "axios";
+import {IAxios, ISendRequest} from "./types";
 
 const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -8,44 +10,12 @@ const getRequest = (url: RequestInfo | URL, option: RequestInit = {}) => {
     return fetch(url, option).then(res => checkResponse(res));
 }
 
-export const getSettingByName = (name: string) => {
-    return getRequest(`${API_URL}/settings/${name}`);
+const checkResponseAxios = (res: AxiosResponse) => {
+    return res.statusText === 'OK' ? res.data : Promise.reject();
 }
 
-export const getArticles = () => {
-    return getRequest(`${API_URL}/articles`);
-}
-
-export const getMenu = (name: string) => {
-    return getRequest(`${API_URL}/menu/${name}`);
-}
-
-export const getProducts = () => {
-    return getRequest(`${API_URL}/products`);
-}
-
-export const getProductsByCategory = (alias: string) => {
-    return getRequest(`${API_URL}/categories/${alias}/products`)
-}
-
-export const getProduct = (alias: string) => {
-    return getRequest(`${API_URL}/products/${alias}`);
-}
-
-export const getBanner = (position: string) => {
-    return getRequest(`${API_URL}/banner/${position}`);
-}
-
-export const getBrands = () => {
-    return getRequest(`${API_URL}/brands`);
-}
-
-export const getSliders = () => {
-    return getRequest(`${API_URL}/sliders`);
-}
-
-export const getMainText = () => {
-    return getRequest(`${API_URL}/main-text`);
+const getRequestAxios = (config: IAxios) => {
+    return axios(config).then(res => checkResponseAxios(res));
 }
 
 export const subscriptionRequest = (email: string) => {
@@ -62,4 +32,14 @@ export const subscriptionRequest = (email: string) => {
     }
 
     return getRequest(`${API_URL}/subscription`, options);
+}
+
+export const sendCallbackForm = (payload: ISendRequest) => {
+    const config = {
+        method: 'post',
+        url: '/',
+        data: payload
+    };
+
+    return getRequestAxios(config);
 }

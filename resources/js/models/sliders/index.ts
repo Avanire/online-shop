@@ -1,8 +1,7 @@
 import {slidersRequest} from "./event";
-import {$sliders, $slidersIsLoading} from "./store";
+import {$sliders} from "./store";
 
 export const modelSliders = {
     slidersRequest,
-    $sliders,
-    $slidersIsLoading
+    $sliders
 }

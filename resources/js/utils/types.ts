@@ -1,4 +1,4 @@
-import {ChangeEvent, ReactElement, SyntheticEvent} from "react";
+import {ChangeEvent, SyntheticEvent} from "react";
 
 export interface IMenu {
     readonly id: number;
@@ -26,7 +26,7 @@ export interface IProduct {
     readonly description: string;
     count: number;
     readonly categoryUrl: string;
-    readonly category: Array<{readonly alias: string}>;
+    readonly category: Array<{ readonly alias: string }>;
     readonly weight: number;
     readonly pet_age: string;
     readonly article: string;
@@ -188,7 +188,13 @@ export interface IArticles {
     readonly articles: Array<IArticle>;
 }
 
-export interface IModalOverlay {
-    readonly onClose: () => void;
-    readonly children?: ReactElement;
+export interface ISendRequest {
+    readonly name: string;
+    readonly phone: string;
+}
+
+export interface IAxios {
+    method: string;
+    url: string;
+    data: {}
 }
