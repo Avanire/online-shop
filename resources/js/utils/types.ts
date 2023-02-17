@@ -1,4 +1,4 @@
-import {ChangeEvent, SyntheticEvent} from "react";
+import React, {ChangeEvent, SyntheticEvent} from "react";
 
 export interface IMenu {
     readonly id: number;
@@ -197,4 +197,9 @@ export interface IAxios {
     method: string;
     url: string;
     data: {}
+}
+
+export interface IInput {
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => (void);
 }

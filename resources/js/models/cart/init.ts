@@ -1,31 +1,50 @@
 import {$cart, $cartState} from './store';
 import {addToCart, clearCart, removeFromCart, toggleCart, removeOneProduct} from "./event";
+import {setToLocalStorage} from "../../utils/utils";
 
 $cart
     .on(addToCart, (cart, currentProduct) => {
         const product = cart.find(item => item.alias === currentProduct.alias);
 
         if (product) {
-            const newCart = cart.filter(item => item.alias !== currentProduct.alias);
+            const filteredCart = cart.filter(item => item.alias !== currentProduct.alias);
+            const newCart = [...filteredCart, {...product, count: product.count + 1}];
 
-            return [...newCart, {...product, count: product.count + 1}];
+            setToLocalStorage('cart', newCart);
+
+            return newCart;
         } else {
-            return [...cart, {...currentProduct, count: 1}];
+            const newCart = [...cart, {...currentProduct, count: 1}];
+
+            setToLocalStorage('cart', newCart);
+
+            return newCart;
         }
     })
     .on(removeFromCart, (cart, currentProduct) => {
         const product = cart.find(item => item.alias === currentProduct.alias);
 
         if (product && product.count > 1) {
-            const newCart = cart.filter(item => item.alias !== currentProduct.alias);
+            const filteredCart = cart.filter(item => item.alias !== currentProduct.alias);
+            const newCart = [...filteredCart, {...product, count: product.count - 1}];
 
-            return [...newCart, {...product, count: product.count - 1}];
+            setToLocalStorage('cart', newCart);
+
+            return newCart;
         } else {
-            return [...cart].filter(item => currentProduct.alias !== item.alias);
+            const newCart = [...cart].filter(item => currentProduct.alias !== item.alias);
+
+            setToLocalStorage('cart', newCart);
+
+            return newCart;
         }
     })
     .on(removeOneProduct, (cart, currentProduct) => {
-        return [...cart].filter(item => item.alias !== currentProduct.alias);
+        const newCart = [...cart].filter(item => item.alias !== currentProduct.alias);
+
+        setToLocalStorage('cart', newCart);
+
+        return newCart;
     })
     .on(clearCart, () => {
         return $cart.defaultState;

@@ -16,25 +16,25 @@ export interface ISiteLayout {
     readonly description: string;
 }
 
-const SiteLayout: FC<ISiteLayout> = ({ children, title, description}) => {
+const SiteLayout: FC<ISiteLayout> = ({children, title, description}) => {
+    const pathname = location.pathname;
     const openCallback = useStore(modelModal.$modalStore);
     const closeCallback = () => {
         modelModal.toggleModal(false);
     }
 
-
     return (
         <>
             <Head>
                 <title>{title}</title>
-                <meta name='description' content={description} />
+                <meta name='description' content={description}/>
             </Head>
-            <AppHeader />
-            {location.pathname === '/' ? null : <Breadcrumbs />}
+            <AppHeader/>
+            {pathname === '/' || pathname === '/checkout' ? null : <Breadcrumbs/>}
             {children}
-            <AppFooter  />
-            <CartPopup />
-            <Modal show={openCallback} onClose={closeCallback}><CallbackModal /></Modal>
+            <AppFooter/>
+            <CartPopup/>
+            <Modal show={openCallback} onClose={closeCallback}><CallbackModal/></Modal>
         </>
     );
 }

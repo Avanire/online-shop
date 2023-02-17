@@ -1,15 +1,14 @@
 import React, {FC} from "react";
-// @ts-ignore
-import styles from "./button.module.css";
 
 interface IButton {
     name: string;
     handleClick?: () => void;
+    disabled?: boolean;
 }
 
-const Button:FC<IButton> = ({name, handleClick}) => {
+const Button:FC<IButton> = ({name, handleClick, disabled= false}) => {
     return (
-        <button onClick={handleClick} className={`${styles.cartBtn} py-3 px-7 font-semibold`}>{name}</button>
+        <button onClick={handleClick} className={`rounded-xl bg-mainPurple text-white py-4 w-full ${disabled ? 'bg-[#D1D5DB]' : ''}`} disabled={disabled}>{name}</button>
     );
 }
 

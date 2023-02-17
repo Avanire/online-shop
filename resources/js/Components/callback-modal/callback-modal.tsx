@@ -6,6 +6,8 @@ import mailIcon from '../../../images/modal-success.webp';
 import mailSend from '../../../images/177-envelope-mail-send-lineal.gif';
 import {useStore} from "effector-react";
 import {modelModal} from "../../models/modal";
+import {InputPhone, InputText} from "../modal-input/modal-input";
+import Button from "../button/button";
 
 const CallbackModal: FC = () => {
     const [inputName, setInputName] = useState('');
@@ -50,29 +52,9 @@ const CallbackModal: FC = () => {
                     <img className={`mx-auto mb-8`} src={catImage} alt=""/>
                     <h2 className={`font-medium text-2xl text-center mb-6`}>Заказать звонок</h2>
                     <form action="/" method="POST" className={`flex flex-col gap-y-6 mb-6`} onSubmit={handleSubmit}>
-                        <label htmlFor="name" className={`flex flex-col`}>
-                            <span className={`text-sm text-textColor mb-3.5`}>Имя</span>
-                            <input type="text"
-                                   name='name'
-                                   id='name'
-                                   placeholder='Имя'
-                                   className={`p-4 rounded-xl border border-borderColor focus:border-mainPurple`}
-                                   value={inputName}
-                                   onChange={handleChangeName}
-                            />
-                        </label>
-                        <label htmlFor="phone" className={`flex flex-col mb-7`}>
-                            <span className={`text-sm text-textColor mb-3.5`}>Номер телефона</span>
-                            <InputMask mask='+7\ 999 999 99 99'
-                                       value={inputTel}
-                                       onChange={handleChangeTel}
-                                       className={`p-4 rounded-xl border border-borderColor focus:border-mainPurple`}
-                                       placeholder='Телефон'
-                                       name='phone'
-                                       id='phone'
-                            />
-                        </label>
-                        <button className={`rounded-xl bg-mainPurple text-white py-4`}>Заказать</button>
+                        <InputText value={inputName} onChange={handleChangeName} />
+                        <InputPhone value={inputTel} onChange={handleChangeTel} />
+                        <Button name='Заказать' />
                     </form>
                     <p className={`text-sm`}>Нажимая кнопку, вы соглашаетесь с Политикой конфиденциальности и Условиями
                         использования</p>

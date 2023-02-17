@@ -8,6 +8,7 @@ import plus from "../../../images/Add.svg";
 import {IProduct} from "../../utils/types";
 import ambulance from '../../../images/ambulance.svg';
 import styles from './cart.module.css';
+import Button from "../button/button";
 
 const Cart: FC = () => {
     const products = useStore(modelCart.$cart);
@@ -117,7 +118,7 @@ const Cart: FC = () => {
                                 <span className={`text-mainPurple text-sm`}>+234 бонуса</span>
                             </span>
                         </div>
-                        {products.length > 0 ? <button className={`w-full bg-mainPurple text-white mb-4 py-4 rounded-xl`}>Оформить заказ</button> : <button className={`w-full bg-[#D1D5DB] text-white mb-4 py-4 rounded-xl`} disabled>Оформить заказ</button>}
+                        <div className={`mb-6`}><Button name='Оформить заказ' disabled={products.length <= 0}/></div>
                         {products.length > 0 ? <input type="text" placeholder='Промокод' className={`${styles.promoInput} relative w-full text-productLightGray pl-14 py-4 rounded-xl border border-borderColor`}/> : null}
                     </div>
                 </div>

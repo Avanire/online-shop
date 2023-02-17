@@ -1,11 +1,24 @@
-import {$modalStore, $modalCallbackFormFailed, $modalCallbackFormLoading, $modalCallbackFormSuccess} from "./store";
-import {toggleModal, sendCallbackRequest} from "./event";
+import {
+    $modalCallbackFormFailed,
+    $modalCallbackFormLoading,
+    $modalCallbackFormSuccess,
+    $modalCheckoutFailed,
+    $modalCheckoutLoading,
+    $modalCheckoutSuccess,
+    $modalStore
+} from "./store";
+import {sendCallbackRequest, sendCheckoutRequest, toggleCheckoutModal, toggleModal} from "./event";
 
 export const modelModal = {
     toggleModal,
+    sendCheckoutRequest,
+    toggleCheckoutModal,
     sendCallbackRequest,
     $modalStore,
     $modalCallbackFormLoading,
     $modalCallbackFormFailed,
-    $modalCallbackFormSuccess
+    $modalCallbackFormSuccess,
+    $modalCheckoutFailed,
+    $modalCheckoutLoading,
+    $modalCheckoutSuccess
 };
