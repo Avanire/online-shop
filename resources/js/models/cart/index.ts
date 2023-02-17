@@ -1,5 +1,5 @@
 import {addToCart, clearCart, removeFromCart, toggleCart, removeOneProduct} from "./event";
-import {$cart, $cartState} from "./store";
+import {$cart, $cartState, $cartTotalPrice, $cartTotalPriceWithoutSale, $cartTotalWeight} from "./store";
 
 export const modelCart = {
     addToCart,
@@ -8,5 +8,8 @@ export const modelCart = {
     removeOneProduct,
     $cart,
     toggleCart,
-    $cartState
+    $cartState,
+    $cartTotalPriceWithoutSale,
+    $cartTotalPrice,
+    $cartTotalWeight
 }

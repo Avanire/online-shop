@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -35,6 +36,7 @@ Route::get('articles/{article}', ArticleController::class)->name('article');
 
 Route::get('cart', CartController::class)->name('cart');
 
+Route::get('checkout', CheckoutController::class)->name('checkout');
 
 Route::middleware([
     'auth:sanctum',
