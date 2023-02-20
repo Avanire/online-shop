@@ -194,12 +194,30 @@ export interface ISendRequest {
 }
 
 export interface IAxios {
-    method: string;
-    url: string;
-    data: {}
+    readonly method: string;
+    readonly url: string;
+    readonly data: {}
 }
 
 export interface IInput {
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => (void);
+    readonly value: string;
+    readonly onChange: (e: React.ChangeEvent<HTMLInputElement>) => (void);
+    readonly name?: string;
+    readonly required?: boolean;
+}
+
+export interface ICheckoutDelivery {
+    readonly id: string;
+    readonly deliveryName: string;
+    readonly deliveryDescription: string;
+    readonly defaultChecked?: boolean;
+    readonly onChange: (id: string) => void;
+}
+
+export interface ICheckoutPayment {
+    readonly id: string;
+    readonly name: string;
+    readonly img: string;
+    readonly defaultChecked?: boolean;
+    readonly onChange: (id: string) => void;
 }
