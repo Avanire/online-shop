@@ -1,7 +1,17 @@
-import {$modalCallbackFormFailed, $modalCallbackFormLoading, $modalCallbackFormSuccess, $modalStore} from "./store";
-import {sendCallbackRequest, toggleModal} from "./event";
-import {sendCallbackFx} from "./fx";
+import {
+    $modalCallbackFormFailed,
+    $modalCallbackFormLoading,
+    $modalCallbackFormSuccess,
+    $modalCheckoutFailed,
+    $modalCheckoutLoading,
+    $modalCheckoutSuccess,
+    $modalStore
+} from "./store";
+import {sendCallbackRequest, sendCheckoutRequest, toggleModal} from "./event";
+import {sendCallbackFx, sendCheckoutFx} from "./fx";
 import {forward} from "effector";
+import {deleteItemInLocalStorage} from "../../utils/utils";
+import {modelCart} from "../cart";
 
 $modalStore.on(toggleModal, (_, action) => action);
 
@@ -17,4 +27,19 @@ $modalCallbackFormFailed
 forward({
     from: sendCallbackRequest,
     to: sendCallbackFx
+});
+
+$modalCheckoutSuccess.on(sendCheckoutFx.doneData, (_, success) => {
+    deleteItemInLocalStorage('cart');
+    modelCart.clearCart();
+    return success;
+});
+
+$modalCheckoutLoading.on(sendCheckoutFx.pending, (_, isLoading) => isLoading);
+
+$modalCheckoutFailed.on(sendCheckoutFx.fail, (isFail, _) => isFail);
+
+forward({
+    from: sendCheckoutRequest,
+    to: sendCheckoutFx
 });

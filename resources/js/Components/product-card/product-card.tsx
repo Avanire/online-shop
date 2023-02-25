@@ -19,7 +19,7 @@ const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
     const [currentImage, setCurrentImage] = useState<string>(product.image);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [length, setLength] = useState<number>(0);
-    console.log(product)
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 

@@ -43,3 +43,13 @@ export const sendCallbackForm = (payload: ISendRequest) => {
 
     return getRequestAxios(config);
 }
+
+export const sendCheckoutForm = (payload: ISendRequest) => {
+    const config = {
+        method: 'post',
+        url: '/checkout',
+        data: payload
+    };
+
+    return getRequestAxios(config);
+}

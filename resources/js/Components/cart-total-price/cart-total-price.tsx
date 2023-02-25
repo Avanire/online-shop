@@ -5,8 +5,14 @@ import Button from "../button/button";
 import styles from "../cart/cart.module.css";
 import {useStore} from "effector-react";
 import {modelCart} from "../../models/cart";
+import {Link} from "@inertiajs/react";
+import route from "ziggy-js";
 
-const CartTotalPrice: FC = () => {
+export interface ICartTotalPrice {
+    readonly handleClickButton?: () => void;
+}
+
+const CartTotalPrice: FC<ICartTotalPrice> = ({handleClickButton}) => {
     const products = useStore(modelCart.$cart);
     const totalPriceWithoutSale = useStore(modelCart.$cartTotalPriceWithoutSale);
     const totalPrice = useStore(modelCart.$cartTotalPrice);
@@ -32,7 +38,11 @@ const CartTotalPrice: FC = () => {
                                 <span className={`text-mainPurple text-sm`}>+234 бонуса</span>
                             </span>
                 </div>
-                <div className={`mb-6`}><Button name='Оформить заказ' disabled={products.length <= 0}/></div>
+                <div className={`mb-6`}>
+                    {
+                        location.pathname === '/cart' ? (<Link href={route('checkout')} className={`rounded-xl bg-mainPurple text-white py-4 w-full inline-block text-center ${products.length <= 0 ? 'bg-[#D1D5DB] pointer-events-none' : ''}`}>Оформить заказ</Link>) : (<Button name='Оформить заказ' disabled={products.length <= 0} handleClick={handleClickButton} />)
+                    }
+                </div>
                 {products.length > 0 ? <input type="text" placeholder='Промокод' className={`${styles.promoInput} relative w-full text-productLightGray pl-14 py-4 rounded-xl border border-borderColor`}/> : null}
             </div>
         </section>

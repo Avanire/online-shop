@@ -13,3 +13,7 @@ export const getLocalStorage = (name: string) => {
 
     return typeof value === 'string' ? JSON.parse(value) : null;
 }
+
+export const deleteItemInLocalStorage = (name: string) => {
+    localStorage.removeItem(name);
+}

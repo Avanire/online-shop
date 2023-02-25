@@ -52,8 +52,8 @@ const CallbackModal: FC = () => {
                     <img className={`mx-auto mb-8`} src={catImage} alt=""/>
                     <h2 className={`font-medium text-2xl text-center mb-6`}>Заказать звонок</h2>
                     <form action="/" method="POST" className={`flex flex-col gap-y-6 mb-6`} onSubmit={handleSubmit}>
-                        <InputText value={inputName} onChange={handleChangeName} required={true} />
-                        <InputPhone value={inputTel} onChange={handleChangeTel} required={true} />
+                        <InputText value={inputName} onChange={handleChangeName} required={true} type='name' />
+                        <InputPhone value={inputTel} onChange={handleChangeTel} required={true} type='phone' />
                         <Button name='Заказать' />
                     </form>
                     <p className={`text-sm`}>Нажимая кнопку, вы соглашаетесь с Политикой конфиденциальности и Условиями

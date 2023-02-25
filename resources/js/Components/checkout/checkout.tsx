@@ -11,6 +11,9 @@ import CheckoutPayment from "../cheackout-payment/checkout-payment";
 import {useStore} from "effector-react";
 import {modelCart} from "../../models/cart";
 import {STORAGE_URL} from "../../utils/constans";
+import {modelModal} from "../../models/modal";
+import mailSend from "../../../images/177-envelope-mail-send-lineal.gif";
+import checkoutImage from '../../../images/checkout-done.svg';
 
 const Checkout: FC = () => {
     const products = useStore(modelCart.$cart);
@@ -19,7 +22,15 @@ const Checkout: FC = () => {
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [delivery, setDelivery] = useState('pickup');
-    const [payment, setPayment] = useState('pickup');
+    const [payment, setPayment] = useState('cash');
+    const [address, setAddress] = useState('');
+    const [flat, setFlat] = useState('');
+    const [entrance, setEntrance] = useState('');
+    const [floor, setFloor] = useState('');
+
+    const orderSend = useStore(modelModal.$modalCheckoutSuccess);
+    const orderSending = useStore(modelModal.$modalCheckoutLoading);
+    const orderSendFailed = useStore(modelModal.$modalCheckoutFailed);
 
     const handleChangeName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -33,6 +44,22 @@ const Checkout: FC = () => {
         setEmail(e.target.value);
     }, []);
 
+    const handleChangeAddress = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setAddress(e.target.value);
+    }, []);
+
+    const handleChangeFlat = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setFlat(e.target.value);
+    }, []);
+
+    const handleChangeEntrance = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setEntrance(e.target.value);
+    }, []);
+
+    const handleChangeFloor = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setFloor(e.target.value);
+    }, []);
+
     const handleChangeDelivery = (id: string) => {
         setDelivery(id);
     }
@@ -41,12 +68,37 @@ const Checkout: FC = () => {
         setPayment(id);
     }
 
+    const handleCheckoutButton = () => {
+        const payload = {
+            name,
+            phone,
+            email,
+            delivery,
+            payment,
+            'address': `${address} кв. ${flat} подъезд ${entrance} этаж ${floor}`,
+            products
+        }
+        modelModal.sendCheckoutRequest(payload);
+    }
+
+    if (orderSending) {
+        return (<div className={`text-center`}>
+            <img src={mailSend} alt="" className={`mx-auto`}/>
+            Отправляем...
+        </div>);
+    }
+
+    if (orderSendFailed) {
+        return (<div>Произошла ошибка. Попробуйте позже или свяжитесь с нами по телефону.</div>);
+    }
+
     return (
         <section className={`container mx-auto mb-28`}>
-            <Link href={`/cart`} className={`inline-flex gap-x-2 mb-8 mt-6 text-linkColor hover:text-mainPurple`}><img src={arrowLeft} alt=""/>В
+            <Link href={`/cart`} className={`inline-flex gap-x-2 mb-8 mt-6 text-linkColor hover:text-mainPurple`}><img
+                src={arrowLeft} alt=""/>В
                 корзину</Link>
             <h1 className={`text-3xl font-semibold mb-8`}>Оформление заказа</h1>
-            <div className={`grid grid-cols-3 gap-x-8`}>
+            {!orderSend ? (<div className={`grid grid-cols-3 gap-x-8`}>
                 <div className={`col-span-2`}>
                     <p className={`mb-16`}>Войдите или зарегистрируйтесь, чтобы получить 147 бонусa за этот заказ</p>
                     <h2 className={`font-medium text-2xl mb-6`}>Получатель</h2>
@@ -55,15 +107,18 @@ const Checkout: FC = () => {
                                    onChange={handleChangeName}
                                    name='Имя и фамилия получателя'
                                    required={true}
+                                   type='name'
                         />
                         <InputPhone value={phone}
                                     onChange={handleChangePhone}
                                     name='Мобильный телефон'
                                     required={true}
+                                    type='phone'
                         />
                         <InputEmail value={email}
                                     onChange={handleChangeMail}
                                     required={true}
+                                    type='mail'
                         />
                     </div>
                     <h2 className={`font-medium text-2xl mb-6`}>Выберите способ получения</h2>
@@ -80,12 +135,42 @@ const Checkout: FC = () => {
                                           onChange={handleChangeDelivery}
                         />
                     </div>
+                    {
+                        delivery === 'curer' ? (<section className={`mb-16`}>
+                            <h2 className={`font-medium text-2xl mb-6`}>Адрес доставки</h2>
+                            <div className={`flex flex-col mb-6`}>
+                                <InputText value={address}
+                                           onChange={handleChangeAddress}
+                                           name='Адрес'
+                                           required={true}
+                                           type='address'
+                                />
+                            </div>
+                            <div className={`flex justify-between gap-x-5`}>
+                                <InputText value={flat}
+                                           onChange={handleChangeFlat}
+                                           name='Квартира'
+                                           required={true}
+                                           type='flat'
+                                />
+                                <InputText value={entrance}
+                                           onChange={handleChangeEntrance}
+                                           name='Подъезд'
+                                           type='entrance'
+                                />
+                                <InputText value={floor}
+                                           onChange={handleChangeFloor}
+                                           name='Этаж'
+                                           type='floor'
+                                />
+                            </div>
+                        </section>) : null
+                    }
                     <h2 className={`font-medium text-2xl mb-6`}>Способ оплаты</h2>
                     <div className={`space-y-4 mb-16`}>
                         <CheckoutPayment id='credit-card'
                                          name='Банковской картой'
                                          img={creditCard}
-                                         defaultChecked={true}
                                          onChange={handleChangePayment}
 
                         />
@@ -93,6 +178,7 @@ const Checkout: FC = () => {
                                          name='Наличными при получении'
                                          img={money}
                                          onChange={handleChangePayment}
+                                         defaultChecked={true}
                         />
                         <CheckoutPayment id='qrCode'
                                          name='QR от Сбера'
@@ -102,21 +188,29 @@ const Checkout: FC = () => {
                     </div>
                     <div className={`flex items-baseline gap-x-5 mb-6`}>
                         <h2 className={`font-medium text-2xl`}>Товары в заказе</h2>
-                        <Link href='/cart' className={`text-mainPurple`}>Изменить</Link>
+                        <Link href={`/cart`} className={`text-mainPurple`}>Изменить</Link>
                     </div>
                     <div className={`flex gap-x-4 flex-wrap`}>
                         {
                             products && products.map(item => (
                                 <div key={item.id} className={`p-3 rounded-xl bg-bgColor relative`}>
-                                    {item.count > 1 ? <span className={`absolute top-3 right-3 font-semibold text-sm text-white bg-mainPurple rounded-xl px-2 pb-1 pt-0.5`}>{item.count}</span> : null}
-                                    <img src={`${STORAGE_URL}${item.image}`} alt={item.name} width={96} />
+                                    {item.count > 1 ? <span
+                                        className={`absolute top-3 right-3 font-semibold text-sm text-white bg-mainPurple rounded-xl px-2 pb-1 pt-0.5`}>{item.count}</span> : null}
+                                    <img src={`${STORAGE_URL}${item.image}`} alt={item.name} width={96}/>
                                 </div>
                             ))
                         }
                     </div>
                 </div>
-                <CartTotalPrice/>
-            </div>
+                <CartTotalPrice handleClickButton={handleCheckoutButton}/>
+            </div>) : (
+            <section>
+                <img src={checkoutImage} alt="" className={`mb-12`}/>
+                <h2 className={`font-semibold text-3xl mb-6`}>Заказ оформлен</h2>
+                <p className={`mb-12`}>Добавьте получателя, если вы покупаете не для себя, или хотите, чтобы товар забрал другой человек</p>
+                <Link href='/' className={`rounded-xl bg-purpleBg font-semibold text-mainPurple py-4 px-11`}>На главную</Link>
+            </section>
+            )}
         </section>
     );
 }

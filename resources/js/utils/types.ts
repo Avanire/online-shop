@@ -204,6 +204,7 @@ export interface IInput {
     readonly onChange: (e: React.ChangeEvent<HTMLInputElement>) => (void);
     readonly name?: string;
     readonly required?: boolean;
+    readonly type: string;
 }
 
 export interface ICheckoutDelivery {
