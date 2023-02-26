@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderSender;
 use App\Models\Order;
-use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrdersController extends Controller
 {
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(Request $request)
@@ -24,8 +25,10 @@ class OrdersController extends Controller
             'delivery' => $request->delivery,
             'payment' => $request->payment,
             'products' => json_encode($request->products),
-            'status'    => 1
+            'status' => 1
         ]);
+
+        Mail::to(env('ADMIN_EMAIL'))->send(new OrderSender($order));
 
         if ($order) {
             return response()->json(['success' => true]);

@@ -13,3 +13,5 @@ export const $cartState = createStore<boolean>(false);
 export const $cartTotalPriceWithoutSale = createStore<number>(totalPriceWithoutSale || 0);
 export const $cartTotalPrice = createStore<number>(totalPrice || 0);
 export const $cartTotalWeight = createStore<number>(totalWeight || 0);
+
+export const $checkoutModal = createStore<boolean>(false);

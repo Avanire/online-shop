@@ -13,7 +13,6 @@ import {modelCart} from "../../models/cart";
 import {STORAGE_URL} from "../../utils/constans";
 import {modelModal} from "../../models/modal";
 import mailSend from "../../../images/177-envelope-mail-send-lineal.gif";
-import checkoutImage from '../../../images/checkout-done.svg';
 
 const Checkout: FC = () => {
     const products = useStore(modelCart.$cart);
@@ -92,13 +91,17 @@ const Checkout: FC = () => {
         return (<div>Произошла ошибка. Попробуйте позже или свяжитесь с нами по телефону.</div>);
     }
 
+    if (orderSend) {
+        modelCart.toggleCheckoutSuccess(true);
+    }
+
     return (
         <section className={`container mx-auto mb-28`}>
             <Link href={`/cart`} className={`inline-flex gap-x-2 mb-8 mt-6 text-linkColor hover:text-mainPurple`}><img
                 src={arrowLeft} alt=""/>В
                 корзину</Link>
             <h1 className={`text-3xl font-semibold mb-8`}>Оформление заказа</h1>
-            {!orderSend ? (<div className={`grid grid-cols-3 gap-x-8`}>
+            <div className={`grid grid-cols-3 gap-x-8`}>
                 <div className={`col-span-2`}>
                     <p className={`mb-16`}>Войдите или зарегистрируйтесь, чтобы получить 147 бонусa за этот заказ</p>
                     <h2 className={`font-medium text-2xl mb-6`}>Получатель</h2>
@@ -203,14 +206,7 @@ const Checkout: FC = () => {
                     </div>
                 </div>
                 <CartTotalPrice handleClickButton={handleCheckoutButton}/>
-            </div>) : (
-            <section>
-                <img src={checkoutImage} alt="" className={`mb-12`}/>
-                <h2 className={`font-semibold text-3xl mb-6`}>Заказ оформлен</h2>
-                <p className={`mb-12`}>Добавьте получателя, если вы покупаете не для себя, или хотите, чтобы товар забрал другой человек</p>
-                <Link href='/' className={`rounded-xl bg-purpleBg font-semibold text-mainPurple py-4 px-11`}>На главную</Link>
-            </section>
-            )}
+            </div>
         </section>
     );
 }

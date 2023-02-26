@@ -1,5 +1,12 @@
-import {$cart, $cartState, $cartTotalPrice, $cartTotalPriceWithoutSale, $cartTotalWeight} from './store';
-import {addToCart, clearCart, removeFromCart, removeOneProduct, toggleCart} from "./event";
+import {
+    $cart,
+    $cartState,
+    $cartTotalPrice,
+    $cartTotalPriceWithoutSale,
+    $cartTotalWeight,
+    $checkoutModal
+} from './store';
+import {addToCart, clearCart, removeFromCart, removeOneProduct, toggleCart, toggleCheckoutSuccess} from "./event";
 import {setToLocalStorage} from "../../utils/utils";
 import {sample} from "effector";
 
@@ -71,3 +78,5 @@ sample({
     target: $cartTotalWeight,
     fn: (clockData) => (clockData.reduce((sum, item) => sum + ((item.weight_unit === 'кг' ? item.weight : item.weight / 1000) * item.count), 0))
 });
+
+$checkoutModal.on(toggleCheckoutSuccess, (_, action) => action);
