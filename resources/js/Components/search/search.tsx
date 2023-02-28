@@ -12,7 +12,7 @@ const Search: FC = () => {
     }
 
     return (
-        <form action="" method='POST' className={`${styles.searchForm} basis-96 h-12 grow mr-14`}>
+        <form action="" method='POST' className={`${styles.searchForm} basis-96 h-12 grow lg:mr-14`}>
             <input type="text"
                    placeholder='Искать товары'
                    value={search}

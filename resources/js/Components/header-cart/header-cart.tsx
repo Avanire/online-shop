@@ -1,10 +1,7 @@
 import React, {FC} from "react";
 import HeaderButton from "../header-button/header-button";
-// @ts-ignore
 import Bag from '../../../images/ShoppingCart.svg';
-// @ts-ignore
 import Bookmark from "../../../images/Heart-top.svg";
-// @ts-ignore
 import User from '../../../images/User.svg';
 import {modelCart} from "../../models/cart";
 import {useStore} from "effector-react";

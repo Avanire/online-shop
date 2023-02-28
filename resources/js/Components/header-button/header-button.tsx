@@ -11,7 +11,7 @@ interface IHeaderButton {
 const HeaderButton: FC<IHeaderButton> = ({image, link, text}) => {
     return (
         <Link href={link} className={`flex flex-col justify-center max-h-12`}>
-            <img src={image} alt=""/>
+            <img src={image} alt="" className={`max-h-7`}/>
             <div className={`text-[var(--link-more)] text-center text-sm`}>{text}</div>
         </Link>
     );

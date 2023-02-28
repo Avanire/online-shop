@@ -8,7 +8,7 @@ const HeaderPhoneBlock: FC = () => {
     }, []);
 
     return (
-        <div className={`flex gap-x-3 items-center ml-auto`}>
+        <div className={`flex gap-x-3 items-center sm:ml-auto`}>
             <Phone/>
             <button className={`text-mainPurple text-bases cursor-pointer`} onClick={handleOpenCallback}>Заказать звонок</button>
         </div>

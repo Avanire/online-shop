@@ -8,7 +8,7 @@ const HeaderTopNav: FC = () => {
     const topMenu = usePage().props.topMenu;
 
     return (
-        <nav className={styles.nav}>
+        <nav className={`gap-x-3 xs:hidden md:flex`}>
             {!topMenu ? <div className={`min-w-[360px]`}><Skeleton count={3} inline={true} width={`30%`} className={`mr-1.5`} /></div> : topMenu.map(item => <Link key={item.id} href={item.url}
                                                                                                                                                                   className={`text-base text-linkColor`}>{item.title}</Link>)}
         </nav>

@@ -35,7 +35,7 @@ const Product: FC<IProduct> = (product) => {
     return (
         <section className={`basis-52 flex-grow shrink-0 flex flex-col`}>
             <Link href={`/catalog/${product.categoryUrl}/${product.alias}`}
-                  className={`${styles.imageBlock} block mb-4 hover:no-underline`}>
+                  className={`${styles.imageBlock} block mb-4 hover:no-underline mx-auto`}>
                 <div className={`absolute top-2 left-2 flex gap-1`}>
                     {product.hit ? (<span><img src={hitImage} alt='хит'/></span>) : null}
                     {product.new_product ? (<span><img src={newImage} alt="новинка"/></span>) : null}

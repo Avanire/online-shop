@@ -12,7 +12,7 @@ const MainSubscription: FC = () => {
     }
 
     return (
-        <section className={`p-10 rounded-3xl bg-[var(--main-purple)] flex justify-between items-center mb-12`}>
+        <section className={`p-10 rounded-3xl bg-[var(--main-purple)] flex justify-between items-center mb-12 flex-wrap sm:flex-nowrap`}>
             <div className={`basis-1/2`}>
                 <div className={`text-white font-bold text-2xl mb-3`}>Хочу быть в курсе акций и новинок</div>
                 <div className={`text-white text-sm`}>Подписывайтесь и получайте самые интересные предложения первыми

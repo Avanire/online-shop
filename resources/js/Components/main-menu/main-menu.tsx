@@ -12,7 +12,7 @@ const MainMenu: FC = () => {
     const [open, setOpen] = useState(false)
 
     return (
-        <div className="bg-white">
+        <div className="bg-white xs:order-1 lg:order-none absolute xs:top-24 sm:top-16 md:static">
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>

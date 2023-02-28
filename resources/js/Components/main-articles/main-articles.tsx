@@ -9,7 +9,7 @@ const MainArticles: FC = () => {
     return (
         <section className={`mb-20`}>
             <h3 className={`mb-8`}>Полезное</h3>
-            <div className={`flex gap-6`}>
+            <div className={`flex overflow-hidden gap-6`}>
                 {articles.map(item => <ArticleCard key={item.id} {...item} />)}
             </div>
         </section>

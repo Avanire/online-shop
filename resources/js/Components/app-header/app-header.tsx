@@ -6,7 +6,7 @@ import MainMenu from "../main-menu/main-menu";
 const AppHeader: FC = () => {
     return (
         <header>
-            <div className={`container mx-auto`}>
+            <div className={`container mx-auto xs:px-3 grid xs:mb-10`}>
                 <HeaderTop />
                 <HeaderMiddle/>
                 <MainMenu/>

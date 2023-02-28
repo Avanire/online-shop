@@ -49,7 +49,7 @@ const HomePage: FC<IHomePage> = ({slides, products, banners, brands, mainText, a
 
     return (
         <SiteLayout title={metaTitle} description={metaDescription}>
-            <main className={`container mx-auto`}>
+            <main className={`container mx-auto xs:px-3`}>
                 <MainSlider/>
                 <MainCategories/>
                 <MainProduct heading={headingStock} linkStock={linkStock} products={stocksProduct}/>
