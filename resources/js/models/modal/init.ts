@@ -30,7 +30,6 @@ forward({
 });
 
 $modalCheckoutSuccess.on(sendCheckoutFx.doneData, (_, success) => {
-    deleteItemInLocalStorage('cart');
     modelCart.clearCart();
     return success;
 });

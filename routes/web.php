@@ -6,6 +6,7 @@ use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
@@ -31,6 +32,8 @@ Route::group(['prefix' => 'catalog'], function () {
     Route::get('{category}', CatalogController::class)->name('category');
     Route::get('{category}/{product}', ProductController::class)->name('product');
 });
+
+Route::get('favorite', FavoriteController::class)->name('favorite');
 
 Route::get('articles', ArticlesController::class)->name('articles');
 Route::get('articles/{article}', ArticleController::class)->name('article');

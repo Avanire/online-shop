@@ -9,6 +9,9 @@ import {ICategoryComponent, IProduct, ISortOptions} from "../../utils/types";
 import Product from "../product/product";
 import CategoryFilter from "../category-filter/category-filter";
 import MobileCategoryFilter from "../mobile-category-filter/mobile-category-filter";
+import {useStore} from "effector-react";
+import {modelCart} from "../../models/cart";
+import {modelFavorite} from "../../models/favorites";
 
 let params = new URLSearchParams((new URL(window.location.href)).searchParams);
 
@@ -33,8 +36,10 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
             return b.price - a.price;
         }
     }
-
-    const products = category.products;
+    const productsCart = useStore(modelCart.$cart);
+    const productsFavorite = useStore(modelFavorite.$favoriteProducts);
+    //Объединяем 3 массива продуктов корзины и всех продуктов категории, чтобы показывать количество
+    const products = Array.from(new Map([...category.products, ...productsCart, ...productsFavorite].map(item => [item['alias'], item])).values());
 
     const filtered = useMemo((): Array<IProduct> => {
         const filterArray = new Set<IProduct>();
@@ -182,7 +187,7 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                 </Dialog>
             </Transition.Root>
 
-            <main className="mx-auto container">
+            <main className="mx-auto container px-2 sm:px-0">
                 <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
                     <h1 className="text-4xl font-semibold tracking-tight text-gray-900">{category.name}</h1>
 
@@ -248,17 +253,13 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
                 </div>
 
                 <section aria-labelledby="products-heading" className="pt-6 pb-24">
-                    <h2 id="products-heading" className="sr-only">
-                        Products
-                    </h2>
-
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                         {/*Filters*/}
                         <CategoryFilter filters={filters} subCategories={subCategories}/>
 
                         {/* Product grid */}
                         <div className="lg:col-span-3">
-                            <div className="grid grid-cols-4 gap-x-5 gap-y-20">
+                            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-20">
                                 {products.length === 0 ?
                                     <div className={`w-full`}><Skeleton count={8} inline={true} width={280}
                                                                         height={444} className={`mr-5`}/>

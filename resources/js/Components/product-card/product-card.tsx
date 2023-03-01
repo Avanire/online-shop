@@ -1,10 +1,8 @@
-import React, {FC, useCallback, useEffect, useState} from "react";
+import React, {FC, FormEvent, useCallback, useEffect, useState} from "react";
 import {RUB, STORAGE_URL} from "../../utils/constans";
 import {modelCart} from "../../models/cart";
 import {IProduct, IProductComponent} from "../../utils/types";
 import {Link} from "@inertiajs/react";
-import HeaderButton from "../header-button/header-button";
-import Bookmark from "../../../images/Heart.svg";
 import delivery from '../../../images/ambulance.svg';
 import payment from '../../../images/payment.svg';
 import hitImage from '../../../images/hit.webp';
@@ -13,14 +11,16 @@ import paymentBlock from '../../../images/payment-card.svg';
 import styles from './product-card.module.css';
 import uuid from "react-uuid";
 import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/20/solid";
+import {modelFavorite} from "../../models/favorites";
 
 const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
     const images: Array<string> | null = JSON.parse(product.images);
     const [currentImage, setCurrentImage] = useState<string>(product.image);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [length, setLength] = useState<number>(0);
+    const [favoriteActive, setFavoriteActive] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         if (!!product) {
@@ -43,6 +43,16 @@ const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
         if (currentIndex > 0) {
             setCurrentIndex(prevState => prevState - 1);
             images && setCurrentImage(images[currentIndex]);
+        }
+    }
+
+    const handleAddFavorite = () => {
+        setFavoriteActive(prevState => !prevState);
+
+        if (favoriteActive) {
+            modelFavorite.removeFavoriteProduct(product);
+        } else {
+            modelFavorite.addFavoriteProduct(product);
         }
     }
 
@@ -141,7 +151,11 @@ const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
                             <button className={`text-white py-3.5 px-20 bg-mainPurple rounded-xl font-semibold`}
                                     onClick={handleSubmit}>В корзину
                             </button>
-                            <HeaderButton image={Bookmark} link='#'/>
+                            <span className={`block p-3 rounded-xl bg-bgColor cursor-pointer`} onClick={handleAddFavorite}>
+                                <svg width="26" height="26" viewBox="0 0 26 26" fill={favoriteActive ? '#764AEF' : 'none'} xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.79486 13.3371L13 21.5422L21.2051 13.3371C23.265 11.2773 23.265 7.93767 21.2051 5.87786C19.1453 3.81806 15.8057 3.81806 13.7459 5.87786L13 6.62379L12.2541 5.87786C10.1943 3.81806 6.85466 3.81806 4.79486 5.87786C2.73505 7.93767 2.73505 11.2773 4.79486 13.3371Z" stroke="#764AEF" strokeWidth="2" strokeLinejoin="round"/>
+                                </svg>
+                            </span>
                         </div>
                     </div>
                     <div className={`py-5 px-6 rounded-xl bg-purpleBg`}>

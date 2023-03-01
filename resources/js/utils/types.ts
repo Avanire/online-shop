@@ -32,6 +32,7 @@ export interface IProduct {
     readonly article: string;
     readonly weight_unit: string;
     readonly images: string;
+    isFavorite: boolean;
 }
 
 export interface IArticleComponent {

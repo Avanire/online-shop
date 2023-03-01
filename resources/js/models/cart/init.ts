@@ -7,14 +7,14 @@ import {
     $checkoutModal
 } from './store';
 import {addToCart, clearCart, removeFromCart, removeOneProduct, toggleCart, toggleCheckoutSuccess} from "./event";
-import {setToLocalStorage} from "../../utils/utils";
+import {deleteItemInLocalStorage, setToLocalStorage} from "../../utils/utils";
 import {sample} from "effector";
 
 $cart
     .on(addToCart, (cart, currentProduct) => {
         const product = cart.find(item => item.alias === currentProduct.alias);
 
-        if (product) {
+        if (!!product) {
             const filteredCart = cart.filter(item => item.alias !== currentProduct.alias);
             const newCart = [...filteredCart, {...product, count: product.count + 1}];
 
@@ -55,6 +55,7 @@ $cart
         return newCart;
     })
     .on(clearCart, () => {
+        deleteItemInLocalStorage('cart');
         return $cart.defaultState;
     });
 

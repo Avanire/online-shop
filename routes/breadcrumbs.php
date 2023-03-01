@@ -16,6 +16,11 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push('Главная', route('home'));
 });
 
+Breadcrumbs::for('favorite', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Избранное', route('favorite'));
+});
+
 Breadcrumbs::for('cart', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Корзина', route('cart'));
