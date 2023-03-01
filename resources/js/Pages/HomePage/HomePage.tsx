@@ -12,12 +12,19 @@ import MainSubscription from "../../Components/main-subscription/main-subscripti
 import SiteLayout from "../../Layouts/SiteLayout";
 import {modelSliders} from "../../models/sliders";
 import {modelArticles} from "../../models/articles";
+import {useStore} from "effector-react";
+import {modelCart} from "../../models/cart";
+import {modelFavorite} from "../../models/favorites";
 
 const HomePage: FC<IHomePage> = ({slides, products, banners, brands, mainText, articles, metaTitle, metaDescription}) => {
     const headingStock = 'Акции';
     const linkStock = '#';
     const headingPopular = 'Популярное';
     const linkPopular = 'Смотреть все';
+
+    const cartProducts = useStore(modelCart.$cart);
+    const favoriteProducts = useStore(modelFavorite.$favoriteProducts);
+    const unionProducts = Array.from(new Map([...products, ...cartProducts, ...favoriteProducts].map(item => [item['alias'], item])).values());
 
     const bannerTop = useMemo(() => {
         return banners.find(item => item.position === 'main-top');
@@ -28,15 +35,15 @@ const HomePage: FC<IHomePage> = ({slides, products, banners, brands, mainText, a
     }, [banners]);
 
     const stocksProduct = useMemo<Array<IProduct>>((): Array<IProduct> => {
-        return products.filter(item => item.hit || item.new_product || item.old_price);
+        return unionProducts.filter(item => item.hit || item.new_product || item.old_price);
     }, [products]);
 
     const popularProduct = useMemo<Array<IProduct>>((): Array<IProduct> => {
-        return products.filter(item => item.hit);
+        return unionProducts.filter(item => item.hit);
     }, [products]);
 
     const recommendedProduct = useMemo<Array<IProduct>>(() => {
-        return products.filter(item => item.recommended);
+        return unionProducts.filter(item => item.recommended);
     }, [products]);
 
     useEffect(() => {
