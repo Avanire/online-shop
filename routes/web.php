@@ -10,6 +10,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,8 @@ Route::group(['prefix' => 'catalog'], function () {
 });
 
 Route::get('favorite', FavoriteController::class)->name('favorite');
+
+Route::post('search', SearchController::class)->name('search');
 
 Route::get('articles', ArticlesController::class)->name('articles');
 Route::get('articles/{article}', ArticleController::class)->name('article');

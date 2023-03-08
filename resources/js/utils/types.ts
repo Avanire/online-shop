@@ -190,8 +190,7 @@ export interface IArticles {
 }
 
 export interface ISendRequest {
-    readonly name: string;
-    readonly phone: string;
+    readonly [name: string]: string | Array<IProduct>;
 }
 
 export interface IAxios {

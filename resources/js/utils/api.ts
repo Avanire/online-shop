@@ -1,6 +1,7 @@
 import {API_URL} from "./constans";
 import axios, {AxiosResponse} from "axios";
 import {IAxios, ISendRequest} from "./types";
+import route from "ziggy-js";
 
 const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -48,6 +49,16 @@ export const sendCheckoutForm = (payload: ISendRequest) => {
     const config = {
         method: 'post',
         url: '/checkout',
+        data: payload
+    };
+
+    return getRequestAxios(config);
+}
+
+export const sendSearchQuery = (payload: ISendRequest) => {
+    const config = {
+        method: 'post',
+        url: route('search'),
         data: payload
     };
 

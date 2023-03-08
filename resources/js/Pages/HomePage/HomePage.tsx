@@ -36,15 +36,15 @@ const HomePage: FC<IHomePage> = ({slides, products, banners, brands, mainText, a
 
     const stocksProduct = useMemo<Array<IProduct>>((): Array<IProduct> => {
         return unionProducts.filter(item => item.hit || item.new_product || item.old_price);
-    }, [products]);
+    }, [cartProducts, favoriteProducts, unionProducts]);
 
     const popularProduct = useMemo<Array<IProduct>>((): Array<IProduct> => {
         return unionProducts.filter(item => item.hit);
-    }, [products]);
+    }, [cartProducts, favoriteProducts, unionProducts]);
 
     const recommendedProduct = useMemo<Array<IProduct>>(() => {
         return unionProducts.filter(item => item.recommended);
-    }, [products]);
+    }, [cartProducts, favoriteProducts, unionProducts]);
 
     useEffect(() => {
         modelSliders.slidersRequest(slides);
