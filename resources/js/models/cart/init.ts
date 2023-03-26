@@ -7,7 +7,6 @@ import {
     $checkoutModal
 } from './store';
 import {addToCart, clearCart, removeFromCart, removeOneProduct, toggleCart, toggleCheckoutSuccess} from "./event";
-import {deleteItemInLocalStorage, setToLocalStorage} from "../../utils/utils";
 import {sample} from "effector";
 
 $cart
@@ -16,17 +15,9 @@ $cart
 
         if (!!product) {
             const filteredCart = cart.filter(item => item.alias !== currentProduct.alias);
-            const newCart = [...filteredCart, {...product, count: product.count + 1}];
-
-            setToLocalStorage('cart', newCart);
-
-            return newCart;
+            return [...filteredCart, {...product, count: product.count + 1}];
         } else {
-            const newCart = [...cart, {...currentProduct, count: 1}];
-
-            setToLocalStorage('cart', newCart);
-
-            return newCart;
+            return [...cart, {...currentProduct, count: 1}];
         }
     })
     .on(removeFromCart, (cart, currentProduct) => {
@@ -34,28 +25,15 @@ $cart
 
         if (product && product.count > 1) {
             const filteredCart = cart.filter(item => item.alias !== currentProduct.alias);
-            const newCart = [...filteredCart, {...product, count: product.count - 1}];
-
-            setToLocalStorage('cart', newCart);
-
-            return newCart;
+            return [...filteredCart, {...product, count: product.count - 1}];
         } else {
-            const newCart = [...cart].filter(item => currentProduct.alias !== item.alias);
-
-            setToLocalStorage('cart', newCart);
-
-            return newCart;
+            return [...cart].filter(item => currentProduct.alias !== item.alias);
         }
     })
     .on(removeOneProduct, (cart, currentProduct) => {
-        const newCart = [...cart].filter(item => item.alias !== currentProduct.alias);
-
-        setToLocalStorage('cart', newCart);
-
-        return newCart;
+        return [...cart].filter(item => item.alias !== currentProduct.alias);
     })
     .on(clearCart, () => {
-        deleteItemInLocalStorage('cart');
         return $cart.defaultState;
     });
 
