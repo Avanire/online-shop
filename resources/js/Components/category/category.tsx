@@ -50,7 +50,6 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
 
     const products = Array.from(new Map([...category.products, ...productsCartFilteredByCategory, ...productsFavoriteFilteredByCategory].map(item => [item['alias'], item])).values());
 
-    console.log(category, productsCart)
     const filtered = useMemo((): Array<IProduct> => {
         const filterArray = new Set<IProduct>();
         products.forEach(product => {
