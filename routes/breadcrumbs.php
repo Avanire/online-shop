@@ -1,17 +1,13 @@
-<?php // routes/breadcrumbs.php
+<?php
 
-// Note: Laravel will automatically resolve `Breadcrumbs::` without
-// this import. This is nice for IDE syntax and refactoring.
 use App\Models\Article;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
-// This import is also not required, and you could replace `BreadcrumbTrail $trail`
-//  with `$trail`. This is nice for IDE type checking and completion.
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
-// Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push('Главная', route('home'));
 });
@@ -34,6 +30,16 @@ Breadcrumbs::for('category', function (BreadcrumbTrail $trail, Category $categor
     }
 
     $trail->push($category->name, route('category', $category));
+});
+
+Breadcrumbs::for('brands', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Бренды', route('brands'));
+});
+
+Breadcrumbs::for('brand', function (BreadcrumbTrail $trail, Brand $brand) {
+    $trail->parent('home');
+    $trail->push($brand->name, route('brand', [$brand]));
 });
 
 Breadcrumbs::for('product', function (BreadcrumbTrail $trail, Category $category, Product $product) {

@@ -39,8 +39,9 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
     const productsCart = useStore(modelCart.$cart);
     const productsFavorite = useStore(modelFavorite.$favoriteProducts);
     //Объединяем 3 массива продуктов корзины и всех продуктов категории, чтобы показывать количество
+    //TODO решить проблему с подмешиванием товаров из фаворит в другие категории
     const products = Array.from(new Map([...category.products, ...productsCart, ...productsFavorite].map(item => [item['alias'], item])).values());
-
+    console.log(products)
     const filtered = useMemo((): Array<IProduct> => {
         const filterArray = new Set<IProduct>();
         products.forEach(product => {

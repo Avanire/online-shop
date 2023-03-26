@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -32,6 +34,11 @@ Route::post('/', CallbackController::class);
 Route::group(['prefix' => 'catalog'], function () {
     Route::get('{category}', CatalogController::class)->name('category');
     Route::get('{category}/{product}', ProductController::class)->name('product');
+});
+
+Route::group(['prefix' => 'brands'], function() {
+    Route::get('/', BrandsController::class)->name('brands');
+    Route::get('/{brand}', BrandController::class)->name('brand');
 });
 
 Route::get('favorite', FavoriteController::class)->name('favorite');

@@ -16,7 +16,6 @@ export interface IProduct {
     readonly rating: number | null;
     readonly count_rating: number | null;
     readonly name: string;
-    readonly brand: number;
     readonly price: number;
     readonly old_price: number | null;
     readonly hit: boolean;
@@ -33,6 +32,7 @@ export interface IProduct {
     readonly weight_unit: string;
     readonly images: string;
     isFavorite: boolean;
+    readonly brand: IBrand;
 }
 
 export interface IArticleComponent {
@@ -57,6 +57,11 @@ export interface IProductCard {
     readonly metaTitle: string;
     readonly metaDescription: string;
     readonly unionProducts: Array<IProduct>;
+}
+
+export interface IBrand {
+    readonly name: string;
+    readonly alias: string;
 }
 
 export interface ICategory {
@@ -221,4 +226,24 @@ export interface ICheckoutPayment {
     readonly img: string;
     readonly defaultChecked?: boolean;
     readonly onChange: (id: string) => void;
+}
+
+export interface IBrandsPage {
+    readonly brands: Array<IBrand>;
+}
+
+export interface IBrand {
+    readonly id: number;
+    readonly name: string;
+    readonly metaTitle: string;
+    readonly metaDescription: string;
+    readonly image: string;
+    readonly description: string;
+    readonly alias: string;
+    readonly products: Array<IProduct>;
+}
+
+export interface IBrandCard {
+    readonly name: string;
+    readonly products: Array<IProduct>;
 }

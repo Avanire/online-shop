@@ -15,7 +15,6 @@ class SearchController extends Controller
      */
     public function __invoke(Request $request)
     {
-
         $result = isset($request->search) ? Product::where('name', 'LIKE', '%'.$request->search.'%')->with(['category:alias'])->take(3)->get() : [];
 
         return response()->json($result);

@@ -120,7 +120,7 @@ const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
                     </div>
                     <div className={`text-headerColor font-normal`}>
                         <span className={`text-productLightGray mr-3`}>Бренд</span>
-                        {product.brand}
+                        <Link href={`/brands/${product.brand.alias}`}>{product.brand.name}</Link>
                     </div>
                     <div className={`text-headerColor font-normal`}>
                         <span className={`text-productLightGray mr-3`}>Вес, в килограммах</span>
@@ -130,7 +130,7 @@ const ProductCard: FC<IProductComponent> = ({product, unionProducts}) => {
                         <span className={`text-productLightGray mr-3`}>Класс корма</span>
                         Премиум
                     </div>
-                    <Link href="#state" className={`text-mainPurple`}>Все характеристики</Link>
+                    <Link href="#" className={`text-mainPurple`}>Все характеристики</Link>
                 </div>
                 <div className={`flex flex-col gap-y-5`}>
                     <div className={`p-6 rounded-xl shadow-md`}>

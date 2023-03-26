@@ -21,14 +21,14 @@ const HeaderCart: FC = () => {
         <>
             <div className={`flex items-center gap-9`}>
                 <HeaderButton image={User} link='#' text='Войти'/>
-                <Link className={`flex flex-col justify-center max-h-12 relative`} href={route('favorite')}>
+                <Link className={`flex flex-col justify-center items-center max-h-12 relative`} href={route('favorite')}>
                     {favorite && favorite.length > 0 && <span className={`absolute text-white text-xs font-semibold px-1.5 pb-0.5 bg-mainPurple rounded-full right-0 -top-2`}>{favorite.length}</span>}
-                    <img src={Bookmark} alt=""/>
+                    <img src={Bookmark} alt="" className={`max-h-7`} />
                     <div className={`text-[var(--link-more)] text-center text-sm`}>Избранное</div>
                 </Link>
-                <button className={`flex flex-col justify-center max-h-12 relative`} onClick={handleCartClick}>
+                <button className={`flex flex-col justify-center items-center max-h-12 relative`} onClick={handleCartClick}>
                     {cart && cart.length > 0 && <span className={`absolute text-white text-xs font-semibold px-1.5 pb-0.5 bg-mainPurple rounded-full right-0 -top-2`}>{cart.length}</span>}
-                    <img src={Bag} alt=""/>
+                    <img src={Bag} alt="" className={`max-h-7`} />
                     <div className={`text-[var(--link-more)] text-center text-sm`}>Корзина</div>
                 </button>
             </div>

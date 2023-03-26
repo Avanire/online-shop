@@ -1,4 +1,4 @@
-import React, {FC, FormEvent, MouseEventHandler, useEffect, useState} from "react";
+import React, {FC, FormEvent, useEffect, useState} from "react";
 import {IProduct} from "../../utils/types";
 import {RUB, STORAGE_URL} from "../../utils/constans";
 import styles from './product.module.css';
@@ -63,8 +63,11 @@ const Product: FC<IProduct> = (product) => {
                     {product.new_product ? (<span><img src={newImage} alt="новинка"/></span>) : null}
                 </div>
                 <div className={`absolute right-3 top-3 cursor-pointer group z-50 block`} onClick={handleAddFavorite}>
-                    <svg width="26" height="26" viewBox="0 0 26 26" fill={isFavorite ? "#764AEF" : "none"} xmlns="http://www.w3.org/2000/svg">
-                        <path className={`group-hover:stroke-mainPurple`} d="M4.79486 13.3371L13 21.5422L21.2051 13.3371C23.265 11.2773 23.265 7.93767 21.2051 5.87786C19.1453 3.81806 15.8057 3.81806 13.7459 5.87786L13 6.62379L12.2541 5.87786C10.1943 3.81806 6.85466 3.81806 4.79486 5.87786C2.73505 7.93767 2.73505 11.2773 4.79486 13.3371Z" stroke={isFavorite ? "#764AEF" : "#C4CBD7"} strokeWidth="2" strokeLinejoin="round"/>
+                    <svg width="26" height="26" viewBox="0 0 26 26" fill={isFavorite ? "#764AEF" : "none"}
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path className={`group-hover:stroke-mainPurple`}
+                              d="M4.79486 13.3371L13 21.5422L21.2051 13.3371C23.265 11.2773 23.265 7.93767 21.2051 5.87786C19.1453 3.81806 15.8057 3.81806 13.7459 5.87786L13 6.62379L12.2541 5.87786C10.1943 3.81806 6.85466 3.81806 4.79486 5.87786C2.73505 7.93767 2.73505 11.2773 4.79486 13.3371Z"
+                              stroke={isFavorite ? "#764AEF" : "#C4CBD7"} strokeWidth="2" strokeLinejoin="round"/>
                     </svg>
                 </div>
                 {product.old_price ? (
@@ -77,8 +80,9 @@ const Product: FC<IProduct> = (product) => {
             <div className={`mb-2.5 flex gap-x-3 items-baseline`}>
                 {product.charity ? <img src={paw} alt=""/> : null}
                 {product.old_price ?
-                    (<><span className={`${styles.newPrice}`}>{Intl.NumberFormat().format(product.price)} {RUB}</span> <span
-                        className={`${styles.oldPrice} line-through`}>{Intl.NumberFormat().format(product.old_price)} {RUB}</span></>) : (
+                    (<><span className={`${styles.newPrice}`}>{Intl.NumberFormat().format(product.price)} {RUB}</span>
+                        <span
+                            className={`${styles.oldPrice} line-through`}>{Intl.NumberFormat().format(product.old_price)} {RUB}</span></>) : (
                         <span className={`${styles.price}`}>{Intl.NumberFormat().format(product.price)} {RUB}</span>)
                 }
             </div>
@@ -89,7 +93,7 @@ const Product: FC<IProduct> = (product) => {
                     <img src={star} alt="" className={`mr-0.5`}/>
                     <span className={`text-menuLink text-sm `}>4.9</span>
                 </div>
-                <div className={`${styles.brand}`}>{product.brand}</div>
+                <Link href={`/brands/${product.brand.alias}`} className={`${styles.brand}`}>{product.brand.name}</Link>
             </div>
             <div className={`flex gap-x-3`}>
                 {counter === 0 ? (

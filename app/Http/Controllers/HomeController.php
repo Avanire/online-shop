@@ -23,7 +23,6 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-
         return Inertia::render('HomePage/HomePage', [
             //Slider
             'slides'    => Slider::all()->where('activity', 1),
