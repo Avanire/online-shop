@@ -12,15 +12,18 @@ import MobileCategoryFilter from "../mobile-category-filter/mobile-category-filt
 import {useStore} from "effector-react";
 import {modelCart} from "../../models/cart";
 import {modelFavorite} from "../../models/favorites";
-
-let params = new URLSearchParams((new URL(window.location.href)).searchParams);
+import {useIsSsr} from "../../../hooks/useIsSsr";
 
 //TODO сделать более простую для масштабирования фильтрацию
 const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
+    const isSsr = useIsSsr();
+
+    let params = isSsr ? null : new URLSearchParams((new URL(window.location.href)).searchParams);
+
     let sortOptions = [
         {name: 'Цена: Сначала дешевая', current: true, type: 'asc'},
         {name: 'Цена: Сначала дорогая', current: false, type: 'desc'},
-    ]
+    ];
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -119,16 +122,18 @@ const Category: FC<ICategoryComponent> = ({category, subCategories}) => {
     }
 
     useEffect(() => {
-        if (!!filterWeight.length) {
-            params.set('weight', filterWeight.join('_'));
-            window.history.pushState(null, '', `?${params}`);
-        } else {
-            window.history.replaceState(null, '', window.location.pathname);
+        if (!isSsr && params instanceof URLSearchParams) {
+            if (filterWeight.length > 0) {
+                params.set('weight', filterWeight.join('_'));
+                window.history.pushState(null, '', `?${params}`);
+            } else {
+                window.history.replaceState(null, '', window.location.pathname);
+            }
         }
     }, [filterWeight]);
 
     useEffect(() => {
-        if (params.has('weight')) {
+        if (params instanceof URLSearchParams && params.has('weight')) {
             const paramsWeight = params.get('weight')?.split('_').map(Number);
             setFilterWeight(paramsWeight || []);
         }

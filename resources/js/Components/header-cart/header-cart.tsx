@@ -7,7 +7,6 @@ import {modelCart} from "../../models/cart";
 import {useStore} from "effector-react";
 import {modelFavorite} from "../../models/favorites";
 import {Link} from "@inertiajs/react";
-import route from "ziggy-js";
 
 const HeaderCart: FC = () => {
     const cart = useStore(modelCart.$cart);
@@ -21,7 +20,7 @@ const HeaderCart: FC = () => {
         <>
             <div className={`flex items-center gap-9`}>
                 <HeaderButton image={User} link='#' text='Войти'/>
-                <Link className={`flex flex-col justify-center items-center max-h-12 relative`} href={route('favorite')}>
+                <Link className={`flex flex-col justify-center items-center max-h-12 relative`} href='/favorite'>
                     {favorite && favorite.length > 0 && <span className={`absolute text-white text-xs font-semibold px-1.5 pb-0.5 bg-mainPurple rounded-full right-0 -top-2`}>{favorite.length}</span>}
                     <img src={Bookmark} alt="" className={`max-h-7`} />
                     <div className={`text-[var(--link-more)] text-center text-sm`}>Избранное</div>
