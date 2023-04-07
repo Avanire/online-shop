@@ -11,6 +11,7 @@ import {useStore} from "effector-react";
 import {modelModal} from "../models/modal";
 import CheckoutSuccessModal from "../Components/checkout-success-modal/checkout-success-modal";
 import {modelCart} from "../models/cart";
+import {useIsSsr} from "../../hooks/useIsSsr";
 
 export interface ISiteLayout {
     readonly children: ReactElement;
@@ -19,7 +20,8 @@ export interface ISiteLayout {
 }
 
 const SiteLayout: FC<ISiteLayout> = ({children, title, description}) => {
-    const pathname = location.pathname;
+    const isSsr = useIsSsr();
+    const pathname = isSsr ? null : window.location.pathname;
 
     const openCallback = useStore(modelModal.$modalStore);
     const closeCallback = () => {

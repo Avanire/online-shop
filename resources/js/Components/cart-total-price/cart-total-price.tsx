@@ -14,9 +14,9 @@ export interface ICartTotalPrice {
 
 const CartTotalPrice: FC<ICartTotalPrice> = ({handleClickButton}) => {
     const products = useStore(modelCart.$cart);
-    const totalPriceWithoutSale = useStore(modelCart.$cartTotalPriceWithoutSale);
-    const totalPrice = useStore(modelCart.$cartTotalPrice);
-    const totalWeight = useStore(modelCart.$cartTotalWeight);
+    const totalPriceWithoutSale = products.reduce((sum, item) => sum + ((item.old_price ? item.old_price : item.price) * item.count), 0);
+    const totalPrice = products.reduce((sum, item) => sum + (item.price * item.count), 0);
+    const totalWeight = products.reduce((sum, item) => sum + ((item.weight_unit === 'кг' ? item.weight : item.weight / 1000) * item.count), 0);
 
     return (
         <section>

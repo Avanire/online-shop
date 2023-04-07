@@ -4,7 +4,6 @@ import {Dialog, Popover, Tab, Transition} from '@headlessui/react';
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline';
 import {classNames} from "../../utils/utils";
 import {Link, usePage} from "@inertiajs/react";
-// @ts-ignore
 import styles from './main-menu.module.css';
 
 const MainMenu: FC = () => {

@@ -1,7 +1,11 @@
 import {createStore} from "effector";
 import {IProduct} from "../../utils/types";
-import {getLocalStorage} from "../../utils/utils";
+import { persist } from 'effector-storage/local';
 
-const favoriteProducts = getLocalStorage('favorite');
+export const $favoriteProducts = createStore<Array<IProduct>>([], {name: 'favorite'});
 
-export const $favoriteProducts = createStore<Array<IProduct>>(favoriteProducts || []);
+persist({
+    store: $favoriteProducts,
+    serialize: (data) => JSON.stringify(data),
+    deserialize: (data) => JSON.parse(data)
+});

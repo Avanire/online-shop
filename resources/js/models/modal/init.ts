@@ -10,7 +10,6 @@ import {
 import {sendCallbackRequest, sendCheckoutRequest, toggleModal} from "./event";
 import {sendCallbackFx, sendCheckoutFx} from "./fx";
 import {forward} from "effector";
-import {deleteItemInLocalStorage} from "../../utils/utils";
 import {modelCart} from "../cart";
 
 $modalStore.on(toggleModal, (_, action) => action);
