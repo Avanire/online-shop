@@ -7,6 +7,7 @@ import {useStore} from "effector-react";
 import {modelCart} from "../../models/cart";
 import {Link} from "@inertiajs/react";
 import route from "ziggy-js";
+import {useIsSsr} from "../../../hooks/useIsSsr";
 
 export interface ICartTotalPrice {
     readonly handleClickButton?: () => void;
@@ -17,6 +18,7 @@ const CartTotalPrice: FC<ICartTotalPrice> = ({handleClickButton}) => {
     const totalPriceWithoutSale = products.reduce((sum, item) => sum + ((item.old_price ? item.old_price : item.price) * item.count), 0);
     const totalPrice = products.reduce((sum, item) => sum + (item.price * item.count), 0);
     const totalWeight = products.reduce((sum, item) => sum + ((item.weight_unit === 'кг' ? item.weight : item.weight / 1000) * item.count), 0);
+    const isSsr = useIsSsr();
 
     return (
         <section>
@@ -40,7 +42,7 @@ const CartTotalPrice: FC<ICartTotalPrice> = ({handleClickButton}) => {
                 </div>
                 <div className={`mb-6`}>
                     {
-                        location.pathname === '/cart' ? (<Link href={route('checkout')} className={`rounded-xl bg-mainPurple text-white py-4 w-full inline-block text-center ${products.length <= 0 ? 'bg-[#D1D5DB] pointer-events-none' : ''}`}>Оформить заказ</Link>) : (<Button name='Оформить заказ' disabled={products.length <= 0} handleClick={handleClickButton} />)
+                        !isSsr && location.pathname === '/cart' ? (<Link href={route('checkout')} className={`rounded-xl bg-mainPurple text-white py-4 w-full inline-block text-center ${products.length <= 0 ? 'bg-[#D1D5DB] pointer-events-none' : ''}`}>Оформить заказ</Link>) : (<Button name='Оформить заказ' disabled={products.length <= 0} handleClick={handleClickButton} />)
                     }
                 </div>
                 {products.length > 0 ? <input type="text" placeholder='Промокод' className={`${styles.promoInput} relative w-full text-productLightGray pl-14 py-4 rounded-xl border border-borderColor`}/> : null}

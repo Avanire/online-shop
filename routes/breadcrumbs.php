@@ -22,6 +22,11 @@ Breadcrumbs::for('cart', function (BreadcrumbTrail $trail) {
     $trail->push('Корзина', route('cart'));
 });
 
+Breadcrumbs::for('checkout', function (BreadcrumbTrail $trail) {
+    $trail->parent('cart');
+    $trail->push('Оформление заказа', route('checkout'));
+});
+
 Breadcrumbs::for('category', function (BreadcrumbTrail $trail, Category $category) {
     if ($category->parent_id !== null) {
         $trail->parent('category', $category::all()->where('id', $category->parent_id)->first());
